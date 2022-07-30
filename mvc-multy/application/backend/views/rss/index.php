@@ -53,7 +53,7 @@
 <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h4 class="m-0">RSS List</h4>
-        <a href="<?=$linkadd?>" class="btn btn-success m-0">Add</a>
+        <a href="<?=$linkAdd?>" class="btn btn-success m-0">Add</a>
     </div>
     <div class="card-body">
         <table class="table table-striped btn-table">
