@@ -9,18 +9,14 @@
         integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
         crossorigin="anonymous" />
 </head>
-<body style="background-color: #eee;">
-    <div class="container pt-5">
+<body class="stretched overlay-menu">
+    <div id="wrapper" class="clearfix bg-light">
 		<!--  LOAD CONTENT -->
 		<?php 
 			require_once APPLICATION_PATH. $this->_moduleName . DS . 'views' . DS . $this->_fileView . '.php';
 		?>
 	</div>
-	<!-- <div id="footer">
-		<p class="copyright">
-			<a href="http://www.joomla.org">Joomla!&#174;</a> is free software released under the <a href="http://www.gnu.org/licenses/gpl-2.0.html">GNU General Public License</a>.	
-		</p>
-	</div> -->
+	
 	<?php echo $this->_jsFiles;?>
 </body>
 </html>
