@@ -1,5 +1,5 @@
 <?php
-class Helper
+class HelperBackend
 {
     public static function showItemStatus($id, $statusValue)
     {
@@ -20,7 +20,7 @@ class Helper
     {
         $class = '';
         $icon = '';
-        if ($groupAcpValue == 'active') {
+        if ($groupAcpValue == 'yes') {
             $class = 'success';
             $icon = 'check';
         } else {
@@ -42,7 +42,7 @@ class Helper
             $title = 'Edit';
         } else if ($action == 'delete'){
             $link = URL::createLink('backend','group','delete', [ 'id' => $id]);
-            $class = 'danger';
+            $class = 'danger btn-delete';
             $icon = 'trash-alt';
             $title = 'Delete';
         }

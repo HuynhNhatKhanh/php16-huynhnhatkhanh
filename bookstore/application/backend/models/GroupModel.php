@@ -8,6 +8,11 @@ class GroupModel extends Model{
 	public function listItems($params){
 		$query[] = "SELECT `id`, `name`, `group_acp`, `created`, `created_by`, `modified`, `modified_by`, `status`, `ordering`";
 		$query[]     = "FROM `$this->table`";
+		if (isset($params['search']) && !empty(trim($params['search']))) {
+            $searchValue = trim($params['search']);
+            $query[]     = "WHERE 
+			`id` LIKE '%$searchValue%' OR `name` LIKE '%$searchValue%' OR `group_acp` LIKE '%$searchValue%' OR `created` LIKE '%$searchValue%' OR `created_by` LIKE '%$searchValue%' OR `modified` LIKE '%$searchValue%' OR `modified_by` LIKE '%$searchValue%' OR `status` LIKE '%$searchValue%' OR `ordering` LIKE '%$searchValue%'";
+        }
 		$query        = implode(" ", $query);
 		$result        = $this->listRecord($query);
         return $result;
@@ -21,7 +26,7 @@ class GroupModel extends Model{
 	}
 	public function changeGroupAcp($params){
 		$id = $params['id'];
-        $groupAcp = ($params['groupAcp'] == 'active') ?  'inactive' : 'active';
+        $groupAcp = ($params['groupAcp'] == 'yes') ?  'no' : 'yes';
 		$query = "UPDATE `$this->table` SET `group_acp` = '$groupAcp' WHERE  `id` = '$id'";
 		$this->query($query);
 	}
