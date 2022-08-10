@@ -1,5 +1,4 @@
 <?php
-$params = $this->params;
 $linkAdd = URL::createLink($params['module'], $params['controller'], 'form');
 
 ?>

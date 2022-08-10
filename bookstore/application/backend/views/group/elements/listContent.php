@@ -2,7 +2,7 @@
 // echo '<pre>';
 // print_r($this->items);
 // echo '</pre>';
-$params = $this->params;
+
 $searchValue = isset($this->params['search']) ?  $this->params['search'] : '';
 
 $xhtml = '';
@@ -15,6 +15,7 @@ foreach ($this->items as $key => $item) {
     $created = HelperBackend::showItemHistory($item['created_by'], $item['created']);
     $modified = HelperBackend::showItemHistory($item['modified_by'], $item['modified']);
 
+    $name = HelperBackend::highlight($searchValue, $item['name']);
     $linkAdd = URL::createLink($params['module'], $params['controller'], 'form');
     $linkEdit = URL::createLink($params['module'], $params['controller'], 'form', ['id' => $id]);
 
@@ -27,7 +28,7 @@ foreach ($this->items as $key => $item) {
             </div>
         </td>
         <td class="text-center">' . $id . '</td>
-        <td class="text-center">' . $item['name'] . '</td>
+        <td class="text-center">' . $name . '</td>
         <td class="text-center position-relative">' . $status . '</td>
         <td class="text-center position-relative">' . $groupAcp . '</td>
         <td class="text-center"> ' . $created . '</td>

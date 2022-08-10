@@ -11,7 +11,7 @@ class GroupModel extends Model{
 		if (isset($params['search']) && !empty(trim($params['search']))) {
             $searchValue = trim($params['search']);
             $query[]     = "WHERE 
-			`id` LIKE '%$searchValue%' OR `name` LIKE '%$searchValue%' OR `group_acp` LIKE '%$searchValue%' OR `created` LIKE '%$searchValue%' OR `created_by` LIKE '%$searchValue%' OR `modified` LIKE '%$searchValue%' OR `modified_by` LIKE '%$searchValue%' OR `status` LIKE '%$searchValue%' OR `ordering` LIKE '%$searchValue%'";
+			 `name` LIKE '%$searchValue%'";
         }
 		$query        = implode(" ", $query);
 		$result        = $this->listRecord($query);
