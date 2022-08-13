@@ -6,6 +6,7 @@
 $searchValue = isset($this->params['search']) ?  $this->params['search'] : '';
 
 $xhtml = '';
+$checkbox = 0;
 foreach ($this->items as $key => $item) {
     $id = $item['id'];
     $status = HelperBackend::showItemStatus($id, $item['status']);
@@ -18,13 +19,14 @@ foreach ($this->items as $key => $item) {
     $name = HelperBackend::highlight($searchValue, $item['name']);
     $linkAdd = URL::createLink($params['module'], $params['controller'], 'form');
     $linkEdit = URL::createLink($params['module'], $params['controller'], 'form', ['id' => $id]);
-
+    
+    $checkbox++;
     $xhtml .= '
         <tr>
         <td class="text-center">
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="checkbox-1" name="checkbox[]" value="1">
-                <label for="checkbox-1" class="custom-control-label"></label>
+                <input class="custom-control-input cb-element" type="checkbox" id="checkbox-' . $checkbox . '" name="checkbox[]" value="' . $checkbox . '">
+                <label for="checkbox-' . $checkbox . '" class="custom-control-label"></label>
             </div>
         </td>
         <td class="text-center">' . $id . '</td>
@@ -45,7 +47,7 @@ foreach ($this->items as $key => $item) {
             <tr>
                 <th class="text-center">
                     <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" id="check-all">
+                        <input class="custom-control-input check" type="checkbox" id="check-all" >
                         <label for="check-all" class="custom-control-label"></label>
                     </div>
                 </th>

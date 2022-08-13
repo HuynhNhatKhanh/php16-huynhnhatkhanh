@@ -1,6 +1,30 @@
 <?php
-    $searchValue = isset($this->params['search']) ?  $this->params['search'] : '';
-    $linkIndex = URL::createLink($params['module'], $params['controller'], 'index');
+$searchValue = isset($this->params['search']) ?  $this->params['search'] : '';
+$linkIndex = URL::createLink($params['module'], $params['controller'], 'index');
+
+// $keySelected = 
+// [
+//     'default' => '- Select Group ACP -',
+//     'yes' => 'Yes',
+//     'no' => 'No',
+// ];
+// $selected == $keySelected ? 'selected=""' : '';
+$xhtml = '<option value="default" selected="">- Select Group ACP -</option>
+            <option value="no" >No</option>
+            <option value="yes" >Yes</option>';
+if(isset($params['filter_groupacp'])){
+    if($params['filter_groupacp'] == 'no'){
+        $xhtml = '<option value="default" >- Select Group ACP -</option>
+                <option value="no" selected="">No</option>
+                <option value="yes">Yes</option>';
+    }
+    if($params['filter_groupacp'] == 'yes'){
+        $xhtml = '<option value="default" >- Select Group ACP -</option>
+                <option value="no" >No</option>
+                <option value="yes" selected="">Yes</option>';
+    }
+}
+
 ?>
 
 <div class="card card-info card-outline">
@@ -19,22 +43,25 @@
                 <a href="#" class="mr-1 btn btn-sm btn-secondary">Inactive <span class="badge badge-pill badge-light">8</span></a>
             </div>
             <div class="mb-1">
-                <select id="filter_groupacp" name="filter_groupacp" class="custom-select custom-select-sm mr-1" style="width: unset">
-                    <option value="default" selected="">- Select Group ACP -</option>
-                    <option value="false">No</option>
-                    <option value="true">Yes</option>
-                </select>
+                <form action="" method="get" id="form-filter-group-acp">
+                    <input type="hidden" name="module" value="<?= $params['module'] ?>">
+                    <input type="hidden" name="controller" value="<?= $params['controller'] ?>">
+                    <input type="hidden" name="action" value="<?= $params['action'] ?>">
+                    <select onchange="this.form.submit()" id="filter_groupacp" name="filter_groupacp" class="custom-select custom-select-sm mr-1" style="width: unset" >
+                        <?=@$xhtml?>
+                    </select>
+                </form>
             </div>
             <div class="mb-1">
                 <form action="">
                     <div class="input-group">
-                        
-                        <input type="hidden" name="module" value="<?=$params['module']?>">
-                        <input type="hidden" name="controller" value="<?=$params['controller']?>">
-                        <input type="hidden" name="action" value="<?=$params['action']?>">
+
+                        <input type="hidden" name="module" value="<?= $params['module'] ?>">
+                        <input type="hidden" name="controller" value="<?= $params['controller'] ?>">
+                        <input type="hidden" name="action" value="<?= $params['action'] ?>">
                         <input type="text" class="form-control form-control-sm" name="search" value="<?= $searchValue ?>" style="min-width: 300px">
                         <div class="input-group-append">
-                            <a href="<?=$linkIndex?>" type="submit" class="btn btn-sm btn-danger" id="btn-clear-search">Clear</a>
+                            <a href="<?= $linkIndex ?>" type="submit" class="btn btn-sm btn-danger" id="btn-clear-search">Clear</a>
                             <button type="submit" class="btn btn-sm btn-info" value="" id="btn-search">Search</button>
                         </div>
                     </div>

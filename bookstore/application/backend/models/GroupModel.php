@@ -8,12 +8,19 @@ class GroupModel extends Model{
 	public function listItems($params){
 		$query[] = "SELECT `id`, `name`, `group_acp`, `created`, `created_by`, `modified`, `modified_by`, `status`, `ordering`";
 		$query[]     = "FROM `$this->table`";
+		$query[]     = "WHERE";
+
+		if(isset(($params['filter_groupacp'])) && ($params['filter_groupacp']) != 'default'){
+			$filterGroupAcp = $params['filter_groupacp'];
+			$query[] = " `group_acp` = '$filterGroupAcp'";
+		}
 		if (isset($params['search']) && !empty(trim($params['search']))) {
             $searchValue = trim($params['search']);
-            $query[]     = "WHERE 
-			 `name` LIKE '%$searchValue%'";
+            $query[]     = " `name` LIKE '%$searchValue%'";
         }
 		$query        = implode(" ", $query);
+		// $query	= rtrim($query, 'AND');
+		$query	= rtrim($query, 'WHERE');
 		$result        = $this->listRecord($query);
         return $result;
 	}

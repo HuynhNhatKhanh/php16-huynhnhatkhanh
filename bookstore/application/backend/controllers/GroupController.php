@@ -13,8 +13,9 @@ class GroupController extends Controller{
 	public function indexAction(){
 		
 		$this->_view->pageTitle = ucfirst($this->_arrParam['controller'])." List : Manager";
-		
 		$this->_view->items = $this->_model->listItems($this->_arrParam);
+		//$this->_model->filterGroupAcp($this->_arrParam);
+
 		$this->_view->render($this->_arrParam['controller'].DS.'index');
 	}
 	
