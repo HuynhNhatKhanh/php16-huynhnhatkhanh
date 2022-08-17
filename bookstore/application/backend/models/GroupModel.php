@@ -8,7 +8,7 @@ class GroupModel extends Model{
 	public function listItems($params){
 		$query[] = "SELECT `id`, `name`, `group_acp`, `created`, `created_by`, `modified`, `modified_by`, `status`, `ordering`";
 		$query[]     = "FROM `$this->table`";
-		$query[]     = "WHERE";
+		$query[]     = "WHERE `id` > 0";
 
 		if(isset(($params['filter_groupacp'])) && ($params['filter_groupacp']) != 'default'){
 			$filterGroupAcp = $params['filter_groupacp'];
@@ -20,7 +20,7 @@ class GroupModel extends Model{
         }
 		$query        = implode(" ", $query);
 		// $query	= rtrim($query, 'AND');
-		$query	= rtrim($query, 'WHERE');
+		//$query	= rtrim($query, 'WHERE');
 		$result        = $this->listRecord($query);
         return $result;
 	}

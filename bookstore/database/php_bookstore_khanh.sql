@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th8 09, 2022 lúc 07:41 PM
+-- Thời gian đã tạo: Th8 17, 2022 lúc 02:02 PM
 -- Phiên bản máy phục vụ: 10.4.22-MariaDB
 -- Phiên bản PHP: 7.4.27
 
@@ -149,11 +149,11 @@ CREATE TABLE `group` (
 --
 
 INSERT INTO `group` (`id`, `name`, `group_acp`, `created`, `created_by`, `modified`, `modified_by`, `status`, `ordering`, `privilege_id`, `picture`) VALUES
-(1, 'Admin', 'active', '2013-11-11 00:00:00', 'admin', '2013-11-12 00:00:00', 'admin', 'inactive', 5, '1,2,3,4,5,6,7,8,9,10', ''),
-(2, 'Manager', 'inactive', '2013-11-07 00:00:00', 'admin', '2013-12-03 00:00:00', 'admin', 'active', 4, '1,2,3,4,6,7,8,9,10', ''),
-(3, 'Member', 'active', '2013-11-12 00:00:00', 'admin', '2013-12-03 00:00:00', 'admin', 'inactive', 2, '', ''),
-(5, 'Member', 'active', '2013-11-12 00:00:00', 'admin', '2013-12-03 00:00:00', 'admin', 'inactive', 2, '', ''),
-(6, 'Manager', 'inactive', '2013-11-07 00:00:00', 'admin', '2013-12-03 00:00:00', 'admin', 'active', 4, '1,2,3,4,6,7,8,9,10', '');
+(1, 'Admin', 'yes', '2013-11-11 07:15:24', 'admin', '2013-11-12 04:23:22', 'admin', 'inactive', 5, '1,2,3,4,5,6,7,8,9,10', ''),
+(2, 'Manager', 'no', '2013-11-07 02:02:20', 'admin', '2013-12-03 07:19:19', 'admin', 'active', 4, '1,2,3,4,6,7,8,9,10', ''),
+(3, 'Member', 'no', '2013-11-12 05:05:15', 'admin', '2013-12-03 08:25:33', 'admin', 'inactive', 2, '', ''),
+(7, 'Manager', 'no', '2013-11-07 06:19:32', 'admin', '2013-12-03 18:48:48', 'admin', 'active', 4, '1,2,3,4,6,7,8,9,10', ''),
+(8, 'Manager', 'yes', '2013-11-07 07:25:42', 'admin', '2013-12-03 18:06:26', 'admin', 'inactive', 4, '1,2,3,4,6,7,8,9,10', '');
 
 -- --------------------------------------------------------
 
@@ -284,7 +284,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT cho bảng `group`
 --
 ALTER TABLE `group`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `privilege`
