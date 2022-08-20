@@ -12,6 +12,12 @@ class Controller{
 	
 	// Params (GET - POST)
 	protected $_arrParam;
+
+	// Pagination
+	protected $_pagination	= array(
+		'totalItemsPerPage'	=> 3,
+		'pageRange'			=> 2,
+	);
 	
 	public function __construct($arrParams){
 		$this->setModel($arrParams['module'], $arrParams['controller']);
@@ -64,5 +70,13 @@ class Controller{
 	// GET PARAMS
 	public function getParams($arrParam){
 		$this->_arrParam= $arrParam;
+	}
+
+	// SET PAGINATION
+	public function setPagination($config){
+		$this->_pagination['totalItemsPerPage'] = $config['totalItemsPerPage'];
+		$this->_pagination['pageRange']			= $config['pageRange'];
+		$this->_arrParam['pagination']			= $this->_pagination;
+		$this->_view->arrParam					=$this->_arrParam;
 	}
 }

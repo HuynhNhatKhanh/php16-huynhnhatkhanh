@@ -65,4 +65,29 @@ class HelperBackend
        }
        return $link;
     }
+    public static function showNotice()
+    {
+        $message= '';
+        if(Session::get('message')){
+            $message .= sprintf(
+                '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                    %s
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>', Session::get('message'));
+                Session::delete('message');
+        }
+        return $message;
+        
+    }
+    public static function checkbox($id){
+        $xhtml = '';
+        $xhtml .= sprintf(' 
+        <div class="custom-control custom-checkbox">
+            <input class="custom-control-input cb-element" type="checkbox" id="checkbox-%s" name="ckid[]" value="%s">
+            <label for="checkbox-%s" class="custom-control-label"></label>
+        </div>', $id, $id,$id);
+        return $xhtml;
+    }
 }

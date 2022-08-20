@@ -13,9 +13,15 @@ class GroupController extends Controller{
 	public function indexAction(){
 		
 		$this->_view->pageTitle = ucfirst($this->_arrParam['controller'])." List : Manager";
-		$this->_view->items = $this->_model->listItems($this->_arrParam);
 		//$this->_model->filterGroupAcp($this->_arrParam);
+		
+		$totalItems					= $this->_model->countItem($this->_arrParam, null);
+		
+		$configPagination = array(['totalItemsPerPage'	=> 5, 'pageRange' => 3]);
+		$this->setPagination($configPagination);
+		$this->_view->pagination	= new Pagination($totalItems, $this->_pagination);
 
+		$this->_view->items = $this->_model->listItems($this->_arrParam);
 		$this->_view->render($this->_arrParam['controller'].DS.'index');
 	}
 	
@@ -33,7 +39,33 @@ class GroupController extends Controller{
 	}
 
 	public function formAction(){
+		$data = null;
+		$task = 'add';
+		if(isset( $this->_arrParam['id'])){
+			$data = $this->_model->getItem($this->_arrParam);
+			$task ='edit';
+		}
 		
+		if(!empty( $this->_arrParam['form'])){
+			$data = $this->_arrParam['form'];
+			
+			// $this->_model->saveItems($data, ['task' => $task]);
+			// 	header('location: index.php?module=backend&controller=group&action=index');
+
+			$validate = new Validate($data);
+			$validate->addRule('name', 'string', ['min' => 1, 'max' => 100])
+					->addRule('status', 'status')
+					->addRule('group_acp', 'groupAcp');
+			$validate->run();
+			$data = $validate->getResult();
+			if($validate->isValid()){
+				$this->_model->saveItems($data, ['task' => $task]);
+				header('location: index.php?module=backend&controller=group&action=index');
+			}else{
+				$this->_view->errors = $validate->showErrors();
+			}		
+		}
+		$this->_view->data = $data;
 		$this->_view->render($this->_arrParam['controller'].DS.'form');
 	}
 	

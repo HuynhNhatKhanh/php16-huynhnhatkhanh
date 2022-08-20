@@ -1,11 +1,13 @@
 <?php
-    $params = $this->params;
+$params = $this->params;
 ?>
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
+        <?= $message = HelperBackend::showNotice();?>
+        
         <!-- Search & Filter -->
-        <?php require_once "elements/searchFilter.php"?>
+        <?php require_once "elements/searchFilter.php" ?>
 
         <!-- List -->
         <div class="card card-info card-outline">
@@ -18,12 +20,12 @@
             </div>
             <div class="card-body">
                 <!-- Control -->
-                <?php require_once "elements/listControl.php"?>
-                
+                <?php require_once "elements/listControl.php" ?>
+
                 <!-- List Content -->
-                <?php require_once "elements/listContent.php"?>
+                <?php require_once "elements/listContent.php" ?>
             </div>
-            <?php require_once "elements/pagination.php"?>
+            <?php require_once "elements/pagination.php" ?>
         </div>
     </div>
 </section>

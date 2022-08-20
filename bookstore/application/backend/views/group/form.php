@@ -1,3 +1,38 @@
+<?php
+    echo '<pre>';
+    print_r($this->data);
+    echo '</pre>';
+    $params = $this->params;
+    $data = $this->data;
+    $lblName = FormBackend::label('name', 'Name', true);
+    $inputName = FormBackend::wrap('',FormBackend::input( 'text', 'form[name]', 'form[name]', @$data['name']));
+    $rowName = FormBackend::row($lblName, $inputName);
+
+    $lblStatus = FormBackend::label('status', 'Status');
+    $arrSelected = [
+        'default' => '- Select Status -',
+        'active'  => 'Active',
+        'inactive'=> 'Inactive'
+    ];
+    $selectStatus = FormBackend::wrap(FormBackend::select('form[status]', 'form[status]', $arrSelected, $data['status'] ?? 'default'));
+    $rowStatus = FormBackend::row($lblStatus, $selectStatus);
+
+    $lblGroupAcp = FormBackend::label('group_acp', 'GroupAcp');
+    $arrSelected = [
+        'default' => '- Select GroupAcp -',
+        'yes'  => 'Yes',
+        'no'=> 'No'
+    ];
+    $selectGroupAcp = FormBackend::wrap(FormBackend::select('form[group_acp]', 'form[group_acp]', $arrSelected, $data['group_acp'] ?? 'default'));
+    $rowGroupAcp = FormBackend::row($lblGroupAcp, $selectGroupAcp);
+
+    $inputId = '';
+    if(isset($this->params['id'])){
+        $inputId = FormBackend::input('hidden', 'form[id]', 'form[id]', $this->params['id']);
+    }
+
+    $linkIndex= URL::createLink($params['module'], $params['controller'], 'index');
+?>
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
@@ -13,8 +48,10 @@
         <div class="card card-info card-outline">
             <div class="card-body">
                 <form action="" method="post" class="mb-0" id="admin-form">
+                    <?php echo $inputId ?>
+                    <?php echo $rowName.$rowStatus.$rowGroupAcp; ?>
 
-                    <div class="form-group row">
+                    <!-- <div class="form-group row">
                         <label for="name" class="col-sm-2 col-form-label text-sm-right required">Name</label>
                         <div class="col-xs-12 col-sm-8">
                             <input type="text" id="form[name]" name="form[name]" value="" class="form-control form-control-sm">
@@ -41,13 +78,15 @@
                                 <option value="1">Yes</option>
                             </select>
                         </div>
-                    </div>
-                    <input type="hidden" id="form[token]" name="form[token]" value="1596364518">
+                    </div> -->
+                    <!-- <input type="hidden" id="form[token]" name="form[token]" value="1596364518"> -->
+                    <button class="btn btn-sm btn-success mr-1 submit-form" id="submit-form"> Save</button>
+                    <a href="<?=$linkIndex?>" class="btn btn-sm btn-danger mr-1"> Cancel</a>
                 </form>
             </div>
             <div class="card-footer">
                 <div class="col-12 col-sm-8 offset-sm-2">
-                    <a href="" class="btn btn-sm btn-success mr-1"> Save</a>
+                    <button class="btn btn-sm btn-success mr-1 submit-form" id="submit-form"> Save</button>
                     <a href="" class="btn btn-sm btn-success mr-1"> Save & Close</a>
                     <a href="" class="btn btn-sm btn-success mr-1"> Save & New</a>
                     <a href="group-list.php" class="btn btn-sm btn-danger mr-1"> Cancel</a>

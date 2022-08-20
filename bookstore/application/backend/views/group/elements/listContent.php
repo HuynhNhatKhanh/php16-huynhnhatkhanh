@@ -6,7 +6,6 @@
 $searchValue = isset($this->params['search']) ?  $this->params['search'] : '';
 
 $xhtml = '';
-$checkbox = 0;
 foreach ($this->items as $key => $item) {
     $id = $item['id'];
     $status = HelperBackend::showItemStatus($id, $item['status']);
@@ -15,20 +14,15 @@ foreach ($this->items as $key => $item) {
     $buttonDelete = HelperBackend::showAction($id, 'delete');
     $created = HelperBackend::showItemHistory($item['created_by'], $item['created']);
     $modified = HelperBackend::showItemHistory($item['modified_by'], $item['modified']);
+    $checkbox = HelperBackend::checkbox($id);
 
     $name = HelperBackend::highlight($searchValue, $item['name']);
     $linkAdd = URL::createLink($params['module'], $params['controller'], 'form');
     $linkEdit = URL::createLink($params['module'], $params['controller'], 'form', ['id' => $id]);
     
-    $checkbox++;
     $xhtml .= '
         <tr>
-        <td class="text-center">
-            <div class="custom-control custom-checkbox">
-                <input class="custom-control-input cb-element" type="checkbox" id="checkbox-' . $checkbox . '" name="checkbox[]" value="' . $checkbox . '">
-                <label for="checkbox-' . $checkbox . '" class="custom-control-label"></label>
-            </div>
-        </td>
+        <td class="text-center">'. $checkbox.'</td>
         <td class="text-center">' . $id . '</td>
         <td class="text-center">' . $name . '</td>
         <td class="text-center position-relative">' . $status . '</td>
@@ -41,7 +35,7 @@ foreach ($this->items as $key => $item) {
 
 ?>
 
-<form action="" method="post" class="table-responsive" id="form-table">
+<form action="submit" method="post" class="table-responsive" id="form-table">
     <table class="table table-bordered table-hover text-nowrap btn-table mb-0">
         <thead>
             <tr>
