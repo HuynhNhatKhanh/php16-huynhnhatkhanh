@@ -25,3 +25,4 @@
 	define ('DB_TABLE'			, 'user');						
 	// ====================== DATABASE TABLE ===========================
 	define ('TB_GROUP'			, 'group');
+	define ('TB_USER'			, 'user');

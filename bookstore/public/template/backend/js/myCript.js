@@ -13,6 +13,7 @@ $(document).ready(function (){
         $("input:checkbox").prop('checked', $(this).prop("checked"));
     });
 
+    
     $("#bulk-apply").click(function () {
         let url = $(this).data('url');
         let slbValue = $('#bulk-action').val();
@@ -21,7 +22,7 @@ $(document).ready(function (){
             if(ckbLength > 0){
                 url = url.replace("value_new", slbValue);
                 $('#form-table').attr('action', url);
-                $('#form-table').submit;
+                $('#form-table').submit();
             }
             else{
                 alert ("Vui long chon it nhat 1 checkbox");
@@ -30,7 +31,7 @@ $(document).ready(function (){
             alert ("Vui long chon action");
         }
     });
-    
+
     var form = document.getElementById("admin-form");
     document.getElementById("submit-form").addEventListener("click", function () {
     form.submit();

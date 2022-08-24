@@ -13,7 +13,7 @@ class HelperBackend
             $icon = 'minus';
         }
         $xhtml = '';
-        $xhtml = '<a href="'.URL::createLink('backend','group','changeStatus',[ 'id' => $id, 'status' => $statusValue]).'" class="my-btn-state rounded-circle btn btn-sm btn-'.$class.'"><i class="fas fa-'.$icon.'"></i></a>';
+        $xhtml = '<a href="'.URL::createLink('backend','user','changeStatus',[ 'id' => $id, 'status' => $statusValue]).'" class="my-btn-state rounded-circle btn btn-sm btn-'.$class.'"><i class="fas fa-'.$icon.'"></i></a>';
         return $xhtml;
     }
     public static function showItemGroupAcp($id, $groupAcpValue)
@@ -36,26 +36,35 @@ class HelperBackend
         $class = '';
         $icon = '';
         if ($action == 'edit') {
-            $link = URL::createLink('backend','group','form', [ 'id' => $id]);
+            $link = URL::createLink('backend','user','form', [ 'id' => $id]);
             $class = 'info';
             $icon = 'pencil-alt';
             $title = 'Edit';
         } else if ($action == 'delete'){
-            $link = URL::createLink('backend','group','delete', [ 'id' => $id]);
+            $link = URL::createLink('backend','user','delete', [ 'id' => $id]);
             $class = 'danger btn-delete';
             $icon = 'trash-alt';
             $title = 'Delete';
+        }else if ($action == 'changePassword'){
+            $link = URL::createLink('backend','user','changePassword', [ 'id' => $id]);
+            $class = 'secondary';
+            $icon = 'key';
+            $title = 'Change Password';
+            
         }
         return sprintf(' <a href="%s" class="rounded-circle btn btn-sm btn-%s" title="%s">
         <i class="fas fa-%s"></i></a>', $link, $class, $title, $icon);
     }
-    public static function showItemHistory($by, $time){
-        $time = date('d/m/Y H:i:s', strtotime($time));
-        $xhtml = 
-        '
-            <p class="mb-0 history-by"><i class="far fa-user"></i> '.$by.'</p>
-            <p class="mb-0 history-time"><i class="far fa-clock"></i> '.$time.'</p>
-        ';
+    public static function showItemHistory($by, $time = null){
+        $xhtml = '';
+        if(isset($time)){
+            $time = date('d/m/Y H:i:s', strtotime($time));
+            $xhtml = 
+            '
+                <p class="mb-0 history-by"><i class="far fa-user"></i> '.$by.'</p>
+                <p class="mb-0 history-time"><i class="far fa-clock"></i> '.$time.'</p>
+            ';
+        }
         return $xhtml;
     }
     public static function highlight($searchValue, $link)

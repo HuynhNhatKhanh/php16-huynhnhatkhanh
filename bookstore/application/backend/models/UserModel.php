@@ -1,10 +1,10 @@
 <?php
-class GroupModel extends Model
+class UserModel extends Model
 {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->setTable(TB_GROUP);
+		$this->setTable(TB_USER);
 	}
 
 	public function countItem($params, $option = null){
@@ -25,23 +25,23 @@ class GroupModel extends Model
 
 	public function listItems($params)
 	{
-		$query[] = "SELECT `id`, `name`, `group_acp`, `created`, `created_by`, `modified`, `modified_by`, `status`, `ordering`";
+		$query[] = "SELECT `id`, `username`, `email`,`fullname`, `password`, `created`, `created_by`, `modified`, `modified_by`, `status`, `ordering`";
 		$query[]     = "FROM `$this->table`";
 		$query[]     = "WHERE `id` > 0";
 
-		if (isset(($params['filter_groupacp'])) && ($params['filter_groupacp']) != 'default') {
-			$filterGroupAcp = $params['filter_groupacp'];
-			$query[] = "AND `group_acp` = '$filterGroupAcp'";
-		}
-		if (isset($params['search']) && !empty(trim($params['search']))) {
-			$searchValue = trim($params['search']);
-			$query[]     = "AND `name` LIKE '%$searchValue%'";
-		}
+		// if (isset(($params['filter_groupacp'])) && ($params['filter_groupacp']) != 'default') {
+		// 	$filterGroupAcp = $params['filter_groupacp'];
+		// 	$query[] = "AND `group_acp` = '$filterGroupAcp'";
+		// }
+		// if (isset($params['search']) && !empty(trim($params['search']))) {
+		// 	$searchValue = trim($params['search']);
+		// 	$query[]     = "AND `name` LIKE '%$searchValue%'";
+		// }
 
-		if (isset($params['filter_status']) && $params['filter_status'] != 'all') {
-			$statusValue = $params['filter_status'];
-			$query[]     = "AND `status`='$statusValue' ";
-		}
+		// if (isset($params['filter_status']) && $params['filter_status'] != 'all') {
+		// 	$statusValue = $params['filter_status'];
+		// 	$query[]     = "AND `status`='$statusValue' ";
+		// }
 
 		// PAGINATION
 		// $pagination			= $params['pagination'];
