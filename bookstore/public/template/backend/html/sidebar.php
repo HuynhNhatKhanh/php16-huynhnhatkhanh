@@ -1,8 +1,15 @@
 <?php
     $linkGroupList = URL::createLink('backend','group', 'index');
     $linkGroupForm = URL::createLink('backend','group', 'form');
+
     $linkUserList = URL::createLink('backend','user', 'index');
     $linkUserForm = URL::createLink('backend','user', 'form'); 
+    
+    $linkCategoryList = URL::createLink('backend','category', 'index');
+    $linkCategoryForm = URL::createLink('backend','category', 'form');
+
+    $linkBookList = URL::createLink('backend','book', 'index');
+    $linkBookForm = URL::createLink('backend','book', 'form');
 ?>
 
 
@@ -83,14 +90,14 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="category-list.php" class="nav-link" data-active="index">
+                            <a href="<?=$linkCategoryForm?>" class="nav-link" data-active="index">
                                 <i class="nav-icon fas fa-list-ul"></i>
                                 <p>List</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="category-form.php" class="nav-link" data-active="form">
+                            <a href="<?=$linkCategoryForm?>" class="nav-link" data-active="form">
                                 <i class="nav-icon fas fa-edit"></i>
                                 <p>Form</p>
                             </a>
@@ -104,14 +111,14 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="book-list.php" class="nav-link" data-active="index">
+                            <a href="<?=$linkBookForm?>" class="nav-link" data-active="index">
                                 <i class="nav-icon fas fa-list-ul"></i>
                                 <p>List</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="book-form.php" class="nav-link" data-active="form">
+                            <a href="<?=$linkBookForm?>" class="nav-link" data-active="form">
                                 <i class="nav-icon fas fa-edit"></i>
                                 <p>Form</p>
                             </a>
