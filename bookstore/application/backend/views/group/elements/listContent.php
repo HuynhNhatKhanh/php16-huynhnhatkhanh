@@ -2,16 +2,16 @@
 // echo '<pre>';
 // print_r($this->items);
 // echo '</pre>';
-
+$params = $this->params;
 $searchValue = isset($this->params['search']) ?  $this->params['search'] : '';
 
 $xhtml = '';
 foreach ($this->items as $key => $item) {
     $id = $item['id'];
-    $status = HelperBackend::showItemStatus($id, $item['status']);
-    $groupAcp = HelperBackend::showItemGroupAcp($id, $item['group_acp']);
-    $buttonEdit = HelperBackend::showAction($id, 'edit');
-    $buttonDelete = HelperBackend::showAction($id, 'delete');
+    $status = HelperBackend::showItemStatus($params['module'], $params['controller'],$id, $item['status']);
+    $groupAcp = HelperBackend::showItemGroupAcp($params['module'], $params['controller'], $id, $item['group_acp']);
+    $buttonEdit = HelperBackend::showAction($params['module'], $params['controller'], $id, 'edit');
+    $buttonDelete = HelperBackend::showAction($params['module'], $params['controller'], $id, 'delete');
     $created = HelperBackend::showItemHistory($item['created_by'], $item['created']);
     $modified = HelperBackend::showItemHistory($item['modified_by'], $item['modified']);
     $checkbox = HelperBackend::checkbox($id);

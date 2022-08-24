@@ -1,7 +1,7 @@
 <?php
 class HelperBackend
 {
-    public static function showItemStatus($id, $statusValue)
+    public static function showItemStatus($module, $controller, $id, $statusValue)
     {
         $class = '';
         $icon = '';
@@ -13,10 +13,10 @@ class HelperBackend
             $icon = 'minus';
         }
         $xhtml = '';
-        $xhtml = '<a href="'.URL::createLink('backend','user','changeStatus',[ 'id' => $id, 'status' => $statusValue]).'" class="my-btn-state rounded-circle btn btn-sm btn-'.$class.'"><i class="fas fa-'.$icon.'"></i></a>';
+        $xhtml = '<a href="'.URL::createLink($module, $controller,'changeStatus',[ 'id' => $id, 'status' => $statusValue]).'" class="my-btn-state rounded-circle btn btn-sm btn-'.$class.'"><i class="fas fa-'.$icon.'"></i></a>';
         return $xhtml;
     }
-    public static function showItemGroupAcp($id, $groupAcpValue)
+    public static function showItemGroupAcp($module, $controller, $id, $groupAcpValue)
     {
         $class = '';
         $icon = '';
@@ -28,25 +28,25 @@ class HelperBackend
             $icon = 'minus';
         }
         $xhtml = '';
-        $xhtml = '<a href="'.URL::createLink('backend','group','changeGroupAcp', [ 'id' => $id, 'groupAcp' => $groupAcpValue]).'" class="my-btn-state rounded-circle btn btn-sm btn-'.$class.'"><i class="fas fa-'.$icon.'"></i></a>';
+        $xhtml = '<a href="'.URL::createLink($module, $controller,'changeGroupAcp', [ 'id' => $id, 'groupAcp' => $groupAcpValue]).'" class="my-btn-state rounded-circle btn btn-sm btn-'.$class.'"><i class="fas fa-'.$icon.'"></i></a>';
         return $xhtml;
     }
-    public static function showAction($id , $action)
+    public static function showAction($module, $controller, $id , $action)
     {
         $class = '';
         $icon = '';
         if ($action == 'edit') {
-            $link = URL::createLink('backend','user','form', [ 'id' => $id]);
+            $link = URL::createLink($module, $controller,'form', [ 'id' => $id]);
             $class = 'info';
             $icon = 'pencil-alt';
             $title = 'Edit';
         } else if ($action == 'delete'){
-            $link = URL::createLink('backend','user','delete', [ 'id' => $id]);
+            $link = URL::createLink($module, $controller,'delete', [ 'id' => $id]);
             $class = 'danger btn-delete';
             $icon = 'trash-alt';
             $title = 'Delete';
         }else if ($action == 'changePassword'){
-            $link = URL::createLink('backend','user','changePassword', [ 'id' => $id]);
+            $link = URL::createLink($module, $controller,'changePassword', [ 'id' => $id]);
             $class = 'secondary';
             $icon = 'key';
             $title = 'Change Password';

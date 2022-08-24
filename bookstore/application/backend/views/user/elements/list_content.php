@@ -2,6 +2,7 @@
     // echo '<pre>';
     // print_r($this->items);
     // echo '</pre>';
+    $params = $this->params;
 
     $xhtml = '';
     foreach ($this->items as $key => $item) {
@@ -10,11 +11,11 @@
         $username = $item['username'];
         $fullname = $item['fullname'];
         $email = $item['email'];
-        $status = HelperBackend::showItemStatus($id, $item['status']);
+        $status = HelperBackend::showItemStatus($params['module'], $params['controller'], $id, $item['status']);
         $created = HelperBackend::showItemHistory($item['created_by'], $item['created']);
-        $buttonEdit = HelperBackend::showAction($id, 'edit');
-        $buttonDelete = HelperBackend::showAction($id, 'delete');
-        $buttonChangePassword = HelperBackend::showAction($id, 'changePassword');
+        $buttonEdit = HelperBackend::showAction($params['module'], $params['controller'], $id, 'edit');
+        $buttonDelete = HelperBackend::showAction($params['module'], $params['controller'], $id, 'delete');
+        $buttonChangePassword = HelperBackend::showAction($params['module'], $params['controller'], $id, 'changePassword');
         $checkbox = HelperBackend::checkbox($id);
         
         $xhtml .= '

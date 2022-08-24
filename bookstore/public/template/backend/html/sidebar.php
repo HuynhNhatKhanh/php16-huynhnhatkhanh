@@ -1,6 +1,8 @@
 <?php
     $linkGroupList = URL::createLink('backend','group', 'index');
-    $linkGroupForm = URL::createLink('backend','group', 'form'); 
+    $linkGroupForm = URL::createLink('backend','group', 'form');
+    $linkUserList = URL::createLink('backend','user', 'index');
+    $linkUserForm = URL::createLink('backend','user', 'form'); 
 ?>
 
 
@@ -60,14 +62,14 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="user-list.php" class="nav-link" data-active="index">
+                            <a href="<?=$linkUserList?>" class="nav-link" data-active="index">
                                 <i class="nav-icon fas fa-list-ul"></i>
                                 <p>List</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="user-form.php" class="nav-link" data-active="form">
+                            <a href="<?=$linkUserForm?>" class="nav-link" data-active="form">
                                 <i class="nav-icon fas fa-edit"></i>
                                 <p>Form</p>
                             </a>
