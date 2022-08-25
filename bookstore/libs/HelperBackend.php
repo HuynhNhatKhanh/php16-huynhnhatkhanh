@@ -90,7 +90,7 @@ class HelperBackend
         return $message;
         
     }
-    public static function checkbox($id){
+    public static function showCheckbox($id){
         $xhtml = '';
         $xhtml .= sprintf(' 
         <div class="custom-control custom-checkbox">
@@ -99,7 +99,7 @@ class HelperBackend
         </div>', $id, $id, $id);
         return $xhtml;
     }
-    public static function buttonSelect($options, $keySelected){
+    public static function showButtonSelect($options, $keySelected){
         $xhtmlOptions = '';
         foreach ($options as $key => $value) {
             $selected = $key == $keySelected ?'selected':'';
@@ -107,5 +107,24 @@ class HelperBackend
         }
         
         return $xhtmlOptions;
+    }
+    public static function showFilterStatus($module, $controller, $arrValues, $filterStatus){
+        $xhtml = '';
+        foreach ($arrValues as $key => $value) {
+            $text = ucfirst($key);
+            $link = URL::createLink($module, $controller, 'index',['filter_status' => $key] );
+
+            $class = 'secondary';
+            if($key == $filterStatus){
+                $class = 'info';
+            }
+            $xhtml .= sprintf(' 
+            <a href="%s" class="mr-1 btn btn-sm btn-%s">%s <span class="badge badge-pill badge-light">%s</span></a>', $link, $class, $text, $value);
+        }
+       
+        // <a href="#" class="mr-1 btn btn-sm btn-info">All <span class="badge badge-pill badge-light">15</span></a>
+        // <a href="#" class="mr-1 btn btn-sm btn-secondary">Active <span class="badge badge-pill badge-light">7</span></a>
+        // <a href="#" class="mr-1 btn btn-sm btn-secondary">Inactive <span class="badge badge-pill badge-light">8</span></a>
+        return $xhtml;
     }
 }

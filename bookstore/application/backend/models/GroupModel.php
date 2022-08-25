@@ -9,15 +9,12 @@ class GroupModel extends Model
 
 	public function countItem($params, $option = null){
 	
-		$query[]	= "SELECT `status` COUNT(`status`) AS `count`";
+		$query[]	= "SELECT `status`, COUNT(`status`) AS `count`";
 		$query[]	= "FROM `$this->table`";
 		$query[]	= "WHERE `id` > 0";
-		
 		$query[]	= "GROUP BY `status`";
-
 		$query		= implode(" ", $query);
 		$result		= $this->listRecord($query);
-
 		$result		= array_combine(array_column($result, 'status'), array_column($result, 'count'));
 		$result	    = ['all' => array_sum($result)] + $result;
 		return $result;

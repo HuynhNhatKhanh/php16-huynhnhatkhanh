@@ -14,7 +14,7 @@ foreach ($this->items as $key => $item) {
     $buttonDelete = HelperBackend::showAction($params['module'], $params['controller'], $id, 'delete');
     $created = HelperBackend::showItemHistory($item['created_by'], $item['created']);
     $modified = HelperBackend::showItemHistory($item['modified_by'], $item['modified']);
-    $checkbox = HelperBackend::checkbox($id);
+    $checkbox = HelperBackend::showCheckbox($id);
 
     $name = HelperBackend::highlight($searchValue, $item['name']);
     $linkAdd = URL::createLink($params['module'], $params['controller'], 'form');

@@ -8,8 +8,13 @@ $keySelected =
     'yes' => 'Yes',
     'no' => 'No',
 ];
-$buttonSelect = HelperBackend::buttonSelect($keySelected, $this->params['filter_groupacp']?? 'default');
- 
+$buttonSelect = HelperBackend::showButtonSelect($keySelected, $this->params['filter_groupacp']?? 'default');
+
+$filterStatus = $params['filter_status'] ?? 'all';
+$buttonStatus = HelperBackend::showFilterStatus($params['module'], $params['controller'], $this->itemsCount, $filterStatus);
+echo '<pre>';
+print_r($this->itemsCount);
+echo '</pre>';
 
 ?>
 
@@ -24,9 +29,7 @@ $buttonSelect = HelperBackend::buttonSelect($keySelected, $this->params['filter_
     <div class="card-body">
         <div class="row justify-content-between">
             <div class="mb-1">
-                <a href="#" class="mr-1 btn btn-sm btn-info">All <span class="badge badge-pill badge-light">15</span></a>
-                <a href="#" class="mr-1 btn btn-sm btn-secondary">Active <span class="badge badge-pill badge-light">7</span></a>
-                <a href="#" class="mr-1 btn btn-sm btn-secondary">Inactive <span class="badge badge-pill badge-light">8</span></a>
+                <?=$buttonStatus?>
             </div>
             <div class="mb-1">
                 <form action="" method="get" id="form-filter-group-acp">
