@@ -51,17 +51,15 @@ class GroupController extends Controller{
 	public function formAction(){
 		$data = null;
 		$task = 'add';
+		$title = ucfirst($this->_arrParam['controller']) . " Form :: Add";
 		if(isset( $this->_arrParam['id'])){
 			$data = $this->_model->getItem($this->_arrParam);
 			$task ='edit';
+			$title = ucfirst($this->_arrParam['controller']) . " Form :: Edit";
 		}
 		
-		if(!empty( $this->_arrParam['form'])){
+		if(!empty($this->_arrParam['form'])){
 			$data = $this->_arrParam['form'];
-			
-			// $this->_model->saveItems($data, ['task' => $task]);
-			// 	header('location: index.php?module=backend&controller=group&action=index');
-
 			$validate = new Validate($data);
 			$validate->addRule('name', 'string', ['min' => 1, 'max' => 100])
 					->addRule('status', 'status')
@@ -70,12 +68,13 @@ class GroupController extends Controller{
 			$data = $validate->getResult();
 			if($validate->isValid()){
 				$this->_model->saveItems($data, ['task' => $task]);
-				header('location: index.php?module=backend&controller=group&action=index');
+				URL::redirect(URL::createLink($this->_arrParam['module'], $this->_arrParam['controller'], 'index'));
 			}else{
 				$this->_view->errors = $validate->showErrors();
 			}		
 		}
 		$this->_view->data = $data;
+		$this->_view->pageTitle = $title;
 		$this->_view->render($this->_arrParam['controller'].DS.'form');
 	}
 	

@@ -12,9 +12,6 @@ $buttonSelect = HelperBackend::showButtonSelect($keySelected, $this->params['fil
 
 $filterStatus = $params['filter_status'] ?? 'all';
 $buttonStatus = HelperBackend::showFilterStatus($params['module'], $params['controller'], $this->itemsCount, $filterStatus);
-echo '<pre>';
-print_r($this->itemsCount);
-echo '</pre>';
 
 ?>
 

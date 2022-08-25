@@ -39,10 +39,6 @@ $(document).ready(function (){
         }
     });
 
-    var form = document.getElementById("admin-form");
-    document.getElementById("submit-form").addEventListener("click", function () {
-    form.submit();
-    });
 
     
 });

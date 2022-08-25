@@ -1,97 +1,61 @@
 <?php
-    echo '<pre>';
-    print_r($this->data);
-    echo '</pre>';
     $params = $this->params;
-    $data = $this->data;
-    $lblName = FormBackend::label('name', 'Name', true);
+    $data   = $this->data;
+    $linkIndex = URL::createLink($params['module'], $params['controller'], 'index');
+    $lblName   = FormBackend::label('name', 'Name', true);
     $inputName = FormBackend::wrap('',FormBackend::input( 'text', 'form[name]', 'form[name]', @$data['name']));
-    $rowName = FormBackend::row($lblName, $inputName);
+    $rowName   = FormBackend::row($lblName, $inputName);
 
-    $lblStatus = FormBackend::label('status', 'Status');
+    $lblStatus   = FormBackend::label('status', 'Status');
     $arrSelected = [
-        'default' => '- Select Status -',
-        'active'  => 'Active',
-        'inactive'=> 'Inactive'
+        'default'  => '- Select Status -',
+        'active'   => 'Active',
+        'inactive' => 'Inactive'
     ];
     $selectStatus = FormBackend::wrap(FormBackend::select('form[status]', 'form[status]', $arrSelected, $data['status'] ?? 'default'));
-    $rowStatus = FormBackend::row($lblStatus, $selectStatus);
+    $rowStatus    = FormBackend::row($lblStatus, $selectStatus);
 
     $lblGroupAcp = FormBackend::label('group_acp', 'GroupAcp');
     $arrSelected = [
         'default' => '- Select GroupAcp -',
-        'yes'  => 'Yes',
-        'no'=> 'No'
+        'yes'     => 'Yes',
+        'no'      => 'No'
     ];
     $selectGroupAcp = FormBackend::wrap(FormBackend::select('form[group_acp]', 'form[group_acp]', $arrSelected, $data['group_acp'] ?? 'default'));
-    $rowGroupAcp = FormBackend::row($lblGroupAcp, $selectGroupAcp);
+    $rowGroupAcp    = FormBackend::row($lblGroupAcp, $selectGroupAcp);
 
     $inputId = '';
     if(isset($this->params['id'])){
         $inputId = FormBackend::input('hidden', 'form[id]', 'form[id]', $this->params['id']);
     }
 
-    $linkIndex= URL::createLink($params['module'], $params['controller'], 'index');
+    $errors = '';
+    if(isset($this->errors)){
+        $errors .= '
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-exclamation-triangle"></i> Lỗi!</h5>
+            <ul class="list-unstyled mb-0">'.$this->errors.'</ul>
+        </div>';
+    }
 ?>
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
-        <div class="alert alert-danger alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h5><i class="icon fas fa-exclamation-triangle"></i> Lỗi!</h5>
-            <ul class="list-unstyled mb-0">
-                <li class="text-white"><b>Name:</b> Giá trị này không được rỗng!</li>
-                <li class="text-white"><b>Status:</b> Vui lòng chọn khác giá trị mặc định!</li>
-                <li class="text-white"><b>Group ACP:</b> Vui lòng chọn khác giá trị mặc định!</li>
-            </ul>
-        </div>
+        <?=$errors ?>
         <div class="card card-info card-outline">
-            <div class="card-body">
-                <form action="" method="post" class="mb-0" id="admin-form">
-                    <?php echo $inputId ?>
-                    <?php echo $rowName.$rowStatus.$rowGroupAcp; ?>
-
-                    <!-- <div class="form-group row">
-                        <label for="name" class="col-sm-2 col-form-label text-sm-right required">Name</label>
-                        <div class="col-xs-12 col-sm-8">
-                            <input type="text" id="form[name]" name="form[name]" value="" class="form-control form-control-sm">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="status" class="col-sm-2 col-form-label text-sm-right">Status</label>
-                        <div class="col-xs-12 col-sm-8">
-                            <select id="form[status]" name="form[status]" class="custom-select custom-select-sm">
-                                <option value="default"> - Select Status - </option>
-                                <option value="inactive">Inactive</option>
-                                <option value="active">Active</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="group_acp" class="col-sm-2 col-form-label text-sm-right">Group ACP</label>
-                        <div class="col-xs-12 col-sm-8">
-                            <select id="form[group_acp]" name="form[group_acp]" class="custom-select custom-select-sm">
-                                <option value="default" selected> - Select Group ACP - </option>
-                                <option value="0">No</option>
-                                <option value="1">Yes</option>
-                            </select>
-                        </div>
-                    </div> -->
-                    <!-- <input type="hidden" id="form[token]" name="form[token]" value="1596364518"> -->
-                    <button class="btn btn-sm btn-success mr-1 submit-form" id="submit-form"> Save</button>
-                    <a href="<?=$linkIndex?>" class="btn btn-sm btn-danger mr-1"> Cancel</a>
-                </form>
-            </div>
-            <div class="card-footer">
-                <div class="col-12 col-sm-8 offset-sm-2">
-                    <button class="btn btn-sm btn-success mr-1 submit-form" id="submit-form"> Save</button>
-                    <a href="" class="btn btn-sm btn-success mr-1"> Save & Close</a>
-                    <a href="" class="btn btn-sm btn-success mr-1"> Save & New</a>
-                    <a href="group-list.php" class="btn btn-sm btn-danger mr-1"> Cancel</a>
+            <form action="" method="post" class="mb-0" id="admin-form">
+                <div class="card-body">     
+                        <?=$inputId ?>
+                        <?=$rowName.$rowStatus.$rowGroupAcp; ?>             
                 </div>
-            </div>
-        </div>
+                <div class="card-footer">
+                    <div class="col-12 col-sm-8 offset-sm-2">
+                        <button class="btn btn-sm btn-success mr-1 submit-form" id="submit-form"> Save</button>
+                        <a href="<?=$linkIndex?>" class="btn btn-sm btn-danger mr-1"> Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>           
     </div>
 </section>

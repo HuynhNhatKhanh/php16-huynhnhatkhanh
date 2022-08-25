@@ -5,7 +5,6 @@ class FormBackend {
         $xhtml = sprintf('<input type="%s" id="%s" name="%s" value="%s" class="form-control form-control-sm">',
         $inputType, $idForm, $name, $value);
         return $xhtml;
-        // <input type="text" id="form[name]" name="form[name]" value="" class="form-control form-control-sm">
         
     }
     public static function select($name, $idForm, $options, $keySelected){

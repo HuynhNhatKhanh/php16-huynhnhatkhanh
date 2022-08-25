@@ -89,13 +89,13 @@ class GroupModel extends Model
 	{
 		if ($option['task'] == 'add') {
 			$params['created'] = date('Y-m-d H:i:s');
+			$params['created_by'] = 'dev';
 			$this->insert($params);
 		}
 		if ($option['task'] == 'edit') {
-
 			$params['modified'] = date('Y-m-d H:i:s');
+			$params['modified_by'] = 'dev';
 			$id = $params['id'];
-
 			unset($params['id']);
 			$this->update($params, [['id', $id]]);
 		}

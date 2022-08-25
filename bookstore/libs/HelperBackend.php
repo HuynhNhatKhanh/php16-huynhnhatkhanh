@@ -118,6 +118,7 @@ class HelperBackend
             if($key == $filterStatus){
                 $class = 'info';
             }
+            
             $xhtml .= sprintf(' 
             <a href="%s" class="mr-1 btn btn-sm btn-%s">%s <span class="badge badge-pill badge-light">%s</span></a>', $link, $class, $text, $value);
         }
