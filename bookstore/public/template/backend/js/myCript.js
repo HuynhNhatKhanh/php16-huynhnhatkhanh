@@ -3,6 +3,7 @@ $(document).ready(function (){
     $('.btn-delete').click(function (e) { 
         e.preventDefault();
         let choice = confirm("Xác nhận xoá!");
+      
         if (choice == true) {
             window.location.href = $(this).attr('href');
         }
@@ -28,7 +29,13 @@ $(document).ready(function (){
                 alert ("Vui long chon it nhat 1 checkbox");
             }
         }else{
-            alert ("Vui long chon action");
+            
+            Swal.fire(
+                'Good job!',
+                'You clicked the button!',
+                'success'
+              )
+              //alert ("Vui long chon action");
         }
     });
 

@@ -96,7 +96,16 @@ class HelperBackend
         <div class="custom-control custom-checkbox">
             <input class="custom-control-input cb-element" type="checkbox" id="checkbox-%s" name="ckid[]" value="%s">
             <label for="checkbox-%s" class="custom-control-label"></label>
-        </div>', $id, $id,$id);
+        </div>', $id, $id, $id);
         return $xhtml;
+    }
+    public static function buttonSelect($options, $keySelected){
+        $xhtmlOptions = '';
+        foreach ($options as $key => $value) {
+            $selected = $key == $keySelected ?'selected':'';
+            $xhtmlOptions .= sprintf('<option value="%s"%s>%s</option>',$key ,$selected, $value);
+        }
+        
+        return $xhtmlOptions;
     }
 }

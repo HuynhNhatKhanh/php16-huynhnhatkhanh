@@ -2,28 +2,14 @@
 $searchValue = isset($this->params['search']) ?  $this->params['search'] : '';
 $linkIndex = URL::createLink($params['module'], $params['controller'], 'index');
 
-// $keySelected = 
-// [
-//     'default' => '- Select Group ACP -',
-//     'yes' => 'Yes',
-//     'no' => 'No',
-// ];
-// $selected == $keySelected ? 'selected=""' : '';
-$xhtml = '<option value="default" selected="">- Select Group ACP -</option>
-            <option value="no" >No</option>
-            <option value="yes" >Yes</option>';
-if(isset($params['filter_groupacp'])){
-    if($params['filter_groupacp'] == 'no'){
-        $xhtml = '<option value="default" >- Select Group ACP -</option>
-                <option value="no" selected="">No</option>
-                <option value="yes">Yes</option>';
-    }
-    if($params['filter_groupacp'] == 'yes'){
-        $xhtml = '<option value="default" >- Select Group ACP -</option>
-                <option value="no" >No</option>
-                <option value="yes" selected="">Yes</option>';
-    }
-}
+$keySelected = 
+[
+    'default' => '- Select Group ACP -',
+    'yes' => 'Yes',
+    'no' => 'No',
+];
+$buttonSelect = HelperBackend::buttonSelect($keySelected, $this->params['filter_groupacp']?? 'default');
+ 
 
 ?>
 
@@ -48,7 +34,7 @@ if(isset($params['filter_groupacp'])){
                     <input type="hidden" name="controller" value="<?= $params['controller'] ?>">
                     <input type="hidden" name="action" value="<?= $params['action'] ?>">
                     <select onchange="this.form.submit()" id="filter_groupacp" name="filter_groupacp" class="custom-select custom-select-sm mr-1" style="width: unset" >
-                        <?=@$xhtml?>
+                        <?=$buttonSelect?>
                     </select>
                 </form>
             </div>
