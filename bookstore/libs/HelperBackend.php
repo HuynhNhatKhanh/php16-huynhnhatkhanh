@@ -122,10 +122,6 @@ class HelperBackend
             $xhtml .= sprintf(' 
             <a href="%s" class="mr-1 btn btn-sm btn-%s">%s <span class="badge badge-pill badge-light">%s</span></a>', $link, $class, $text, $value);
         }
-       
-        // <a href="#" class="mr-1 btn btn-sm btn-info">All <span class="badge badge-pill badge-light">15</span></a>
-        // <a href="#" class="mr-1 btn btn-sm btn-secondary">Active <span class="badge badge-pill badge-light">7</span></a>
-        // <a href="#" class="mr-1 btn btn-sm btn-secondary">Inactive <span class="badge badge-pill badge-light">8</span></a>
         return $xhtml;
     }
 }

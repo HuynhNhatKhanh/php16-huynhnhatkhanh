@@ -91,6 +91,9 @@ class GroupModel extends Model
 			$params['created'] = date('Y-m-d H:i:s');
 			$params['created_by'] = 'dev';
 			$this->insert($params);
+			if ($this->affectedRows()) {
+				Session::set('message', NOTICE_ADD_ITEM_SUCCESS);
+			}
 		}
 		if ($option['task'] == 'edit') {
 			$params['modified'] = date('Y-m-d H:i:s');
@@ -98,6 +101,9 @@ class GroupModel extends Model
 			$id = $params['id'];
 			unset($params['id']);
 			$this->update($params, [['id', $id]]);
+			if ($this->affectedRows()) {
+				Session::set('message', NOTICE_UPDATE_ITEM_SUCCESS);
+			}
 		}
 	}
 	public function getItem($params)

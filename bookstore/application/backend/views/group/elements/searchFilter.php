@@ -1,5 +1,12 @@
 <?php
+
+$inputHiddenModule     = FormBackend::input('hidden', 'moduleId', 'module', $params['module']);
+$inputHiddenController = FormBackend::input('hidden', 'controllerId', 'controller', $params['controller']);
+$inputHiddenAction     = FormBackend::input('hidden', 'actionId', 'action', $params['action']);
+
+
 $searchValue = isset($this->params['search']) ?  $this->params['search'] : '';
+
 $linkIndex = URL::createLink($params['module'], $params['controller'], 'index');
 
 $keySelected = 
@@ -30,22 +37,18 @@ $buttonStatus = HelperBackend::showFilterStatus($params['module'], $params['cont
             </div>
             <div class="mb-1">
                 <form action="" method="get" id="form-filter-group-acp">
-                    <input type="hidden" name="module" value="<?= $params['module'] ?>">
-                    <input type="hidden" name="controller" value="<?= $params['controller'] ?>">
-                    <input type="hidden" name="action" value="<?= $params['action'] ?>">
+                    <?=$inputHiddenModule.$inputHiddenController.$inputHiddenAction?>
                     <select onchange="this.form.submit()" id="filter_groupacp" name="filter_groupacp" class="custom-select custom-select-sm mr-1" style="width: unset" >
                         <?=$buttonSelect?>
                     </select>
                 </form>
             </div>
             <div class="mb-1">
-                <form action="">
+                <form action="" method="get">
                     <div class="input-group">
+                        <?=$inputHiddenModule.$inputHiddenController.$inputHiddenAction?>
+                        <input type="text" class="form-control form-control-sm" name="search" value="<?=$searchValue?>" style="min-width: 300px"  >
 
-                        <input type="hidden" name="module" value="<?= $params['module'] ?>">
-                        <input type="hidden" name="controller" value="<?= $params['controller'] ?>">
-                        <input type="hidden" name="action" value="<?= $params['action'] ?>">
-                        <input type="text" class="form-control form-control-sm" name="search" value="<?= $searchValue ?>" style="min-width: 300px">
                         <div class="input-group-append">
                             <a href="<?= $linkIndex ?>" type="submit" class="btn btn-sm btn-danger" id="btn-clear-search">Clear</a>
                             <button type="submit" class="btn btn-sm btn-info" value="" id="btn-search">Search</button>
