@@ -14,6 +14,11 @@ $(document).ready(function (){
         $("input:checkbox").prop('checked', $(this).prop("checked"));
     });
 
+    $('#filter_groupacp').on('change', function() {
+        $('#form-filter-group-acp').submit();
+        // $('#input-search').submit();
+    });
+
     
     $("#bulk-apply").click(function () {
         let url = $(this).data('url');

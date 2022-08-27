@@ -113,9 +113,11 @@ class HelperBackend
         foreach ($arrValues as $key => $value) {
             $text = ucfirst($key);
             $link = URL::createLink($module, $controller, 'index',['filter_status' => $key] );
+            if(isset($filterStatus['filter_groupacp'])) $link .= '&filter_groupacp='.$filterStatus['filter_groupacp'].'';
+            if(isset($filterStatus['search'])) $link .= '&search='.$filterStatus['search'].'';
 
             $class = 'secondary';
-            if($key == $filterStatus){
+            if($key == $filterStatus['filter_status']){
                 $class = 'info';
             }
             

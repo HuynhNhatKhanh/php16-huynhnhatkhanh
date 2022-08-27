@@ -12,6 +12,14 @@ class GroupModel extends Model
 		$query[]	= "SELECT `status`, COUNT(`status`) AS `count`";
 		$query[]	= "FROM `$this->table`";
 		$query[]	= "WHERE `id` > 0";
+		if(isset(($params['filter_groupacp'])) && ($params['filter_groupacp']) != 'default'){
+			$filterGroupAcp = $params['filter_groupacp'];
+			$query[] = "AND `group_acp` = '$filterGroupAcp'";
+		}
+		if (isset($params['search']) && !empty(trim($params['search']))) {
+			$searchValue = trim($params['search']);
+			$query[]     = "AND `name` LIKE '%$searchValue%'";
+		}
 		$query[]	= "GROUP BY `status`";
 		$query		= implode(" ", $query);
 		$result		= $this->listRecord($query);
@@ -30,15 +38,16 @@ class GroupModel extends Model
 			$filterGroupAcp = $params['filter_groupacp'];
 			$query[] = "AND `group_acp` = '$filterGroupAcp'";
 		}
+		if (isset($params['filter_status']) && $params['filter_status'] != 'all') {
+			$statusValue = $params['filter_status'];
+			$query[]     = "AND `status`='$statusValue' ";
+		}
 		if (isset($params['search']) && !empty(trim($params['search']))) {
 			$searchValue = trim($params['search']);
 			$query[]     = "AND `name` LIKE '%$searchValue%'";
 		}
 
-		if (isset($params['filter_status']) && $params['filter_status'] != 'all') {
-			$statusValue = $params['filter_status'];
-			$query[]     = "AND `status`='$statusValue' ";
-		}
+		
 
 		// PAGINATION
 		// $pagination			= $params['pagination'];
@@ -124,4 +133,3 @@ class GroupModel extends Model
 		}
 	}
 }
-//`id`, `name`, `group_acp`, `created`, `created_by`, `modified`, `modified_by`, `status`, `ordering`

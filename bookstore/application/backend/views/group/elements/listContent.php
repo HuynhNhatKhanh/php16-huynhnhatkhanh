@@ -3,7 +3,7 @@
 // print_r($this->items);
 // echo '</pre>';
 $params = $this->params;
-$searchValue = isset($this->params['search']) ?  $this->params['search'] : '';
+$searchValue = isset($params['search']) ?  $params['search'] : '';
 
 $xhtml = '';
 foreach ($this->items as $key => $item) {

@@ -4,10 +4,7 @@ $inputHiddenModule     = FormBackend::input('hidden', 'moduleId', 'module', $par
 $inputHiddenController = FormBackend::input('hidden', 'controllerId', 'controller', $params['controller']);
 $inputHiddenAction     = FormBackend::input('hidden', 'actionId', 'action', $params['action']);
 
-
-$searchValue = isset($this->params['search']) ?  $this->params['search'] : '';
-
-$linkIndex = URL::createLink($params['module'], $params['controller'], 'index');
+$searchValue = isset($params['search']) ?  $params['search'] : '';
 
 $keySelected = 
 [
@@ -15,11 +12,47 @@ $keySelected =
     'yes' => 'Yes',
     'no' => 'No',
 ];
-$buttonSelect = HelperBackend::showButtonSelect($keySelected, $this->params['filter_groupacp']?? 'default');
+$buttonSelect = HelperBackend::showButtonSelect($keySelected, $params['filter_groupacp']?? 'default');
 
-$filterStatus = $params['filter_status'] ?? 'all';
-$buttonStatus = HelperBackend::showFilterStatus($params['module'], $params['controller'], $this->itemsCount, $filterStatus);
+$filterStatus = [
+    'filter_status'   => $params['filter_status'] ?? 'all',
+];
+// if(isset($params['filter_groupacp'])){
+//     $filterStatus = [
+//         'filter_status'   => $params['filter_status'] ?? 'all',
+//         'filter_groupacp' => $params['filter_groupacp']
+//     ];
+// }
+if(isset($params['filter_groupacp'])){
+    $filterStatus['filter_groupacp'] = $params['filter_groupacp'];
+}
+if(isset($params['search'])){
+    $filterStatus['search'] = $params['search'];
+}
 
+$flag = $filterStatus;
+unset($flag['search']);
+$linkIndex                 = URL::createLink($params['module'], $params['controller'], 'index', $flag);
+$buttonStatus              = HelperBackend::showFilterStatus($params['module'], $params['controller'], $this->itemsCount, $filterStatus);
+
+$url                       = $inputHiddenModule.$inputHiddenController.$inputHiddenAction;
+$urlGroupAcp               = $inputHiddenModule.$inputHiddenController.$inputHiddenAction;
+$inputHiddenFilterStatus   = FormBackend::input('hidden', 'filter_status', 'filter_status', @$params['filter_status']);
+$inputHiddenFilterGroupAcp = FormBackend::input('hidden', 'filter_groupacp', 'filter_groupacp', @$params['filter_groupacp']);
+// $inputHiddenFilterSearch   = FormBackend::input('hidden', 'filter_search', 'filter_search', @$params['filter_search']);
+if(isset($params['filter_status']))     {
+    $url .= $inputHiddenFilterStatus;
+    $urlGroupAcp .= $inputHiddenFilterStatus;
+}
+if(isset($params['filter_groupacp']))   $url .= $inputHiddenFilterGroupAcp;
+// if(isset($params['search']))     {
+//     $url .= $inputHiddenFilterSearch;
+//     $urlGroupAcp .= $inputHiddenFilterSearch;
+// }
+
+echo '<pre>';
+print_r( $filterStatus);
+echo '</pre>';
 ?>
 
 <div class="card card-info card-outline">
@@ -36,9 +69,9 @@ $buttonStatus = HelperBackend::showFilterStatus($params['module'], $params['cont
                 <?=$buttonStatus?>
             </div>
             <div class="mb-1">
-                <form action="" method="get" id="form-filter-group-acp">
-                    <?=$inputHiddenModule.$inputHiddenController.$inputHiddenAction?>
-                    <select onchange="this.form.submit()" id="filter_groupacp" name="filter_groupacp" class="custom-select custom-select-sm mr-1" style="width: unset" >
+                <form action="" method="get" id="form-filter-group-acp" name="form-filter-group-acp" >
+                    <?=$urlGroupAcp?>
+                    <select id="filter_groupacp" name="filter_groupacp" class="custom-select custom-select-sm mr-1" style="width: unset" >
                         <?=$buttonSelect?>
                     </select>
                 </form>
@@ -46,8 +79,8 @@ $buttonStatus = HelperBackend::showFilterStatus($params['module'], $params['cont
             <div class="mb-1">
                 <form action="" method="get">
                     <div class="input-group">
-                        <?=$inputHiddenModule.$inputHiddenController.$inputHiddenAction?>
-                        <input type="text" class="form-control form-control-sm" name="search" value="<?=$searchValue?>" style="min-width: 300px"  >
+                        <?=$url?>
+                        <input type="text" id="input-search" class="form-control form-control-sm" name="search" value="<?=$searchValue?>" style="min-width: 300px"  >
 
                         <div class="input-group-append">
                             <a href="<?= $linkIndex ?>" type="submit" class="btn btn-sm btn-danger" id="btn-clear-search">Clear</a>
