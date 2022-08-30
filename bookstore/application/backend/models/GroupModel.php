@@ -9,7 +9,7 @@ class GroupModel extends Model
 
 	public function countItem($params, $option = null){
 	
-		$query[]	= "SELECT `status`, COUNT(`status`) AS `count`";
+		$query[]	= "SELECT `status`, COUNT(`id`) AS `count`";
 		$query[]	= "FROM `$this->table`";
 		$query[]	= "WHERE `id` > 0";
 		if(isset(($params['filter_groupacp'])) && ($params['filter_groupacp']) != 'default'){
@@ -47,15 +47,13 @@ class GroupModel extends Model
 			$query[]     = "AND `name` LIKE '%$searchValue%'";
 		}
 
-		
-
-		// PAGINATION
-		// $pagination			= $params['pagination'];
-		// $totalItemsPerPage	= $pagination['totalItemsPerPage'];
-		// if($totalItemsPerPage > 0){
-		// 	$position	= ($pagination['currentPage']-1)*$totalItemsPerPage;
-		// 	$query[]	= "LIMIT $position, $totalItemsPerPage";
-		// }
+		//PAGINATION
+		$pagination			= $params['pagination'];
+		$totalItemsPerPage	= $pagination['totalItemsPerPage'];
+		if($totalItemsPerPage > 0){
+			$position	= ($pagination['currentPage']-1)*$totalItemsPerPage;
+			$query[]	= "LIMIT $position, $totalItemsPerPage";
+		}
 
 		$query        = implode(" ", $query);
 		$result        = $this->listRecord($query);

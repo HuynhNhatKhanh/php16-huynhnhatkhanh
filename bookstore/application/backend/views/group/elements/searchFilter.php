@@ -50,9 +50,9 @@ if(isset($params['filter_groupacp']))   $url .= $inputHiddenFilterGroupAcp;
 //     $urlGroupAcp .= $inputHiddenFilterSearch;
 // }
 
-echo '<pre>';
-print_r( $filterStatus);
-echo '</pre>';
+// echo '<pre>';
+// print_r( $filterStatus);
+// echo '</pre>';
 ?>
 
 <div class="card card-info card-outline">

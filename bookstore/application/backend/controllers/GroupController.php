@@ -15,11 +15,11 @@ class GroupController extends Controller{
 		$this->_view->pageTitle = ucfirst($this->_arrParam['controller'])." List : Manager";
 		//$this->_model->filterGroupAcp($this->_arrParam);
 		
-		// $totalItems					= $this->_model->countItem($this->_arrParam, null);
-		
-		// $configPagination = array(['totalItemsPerPage'	=> 5, 'pageRange' => 3]);
-		// $this->setPagination($configPagination);
-		// $this->_view->pagination	= new Pagination($totalItems, $this->_pagination);
+		$totalItems					= $this->_model->countItem($this->_arrParam, null);
+		$configPagination = ['totalItemsPerPage'	=> 2, 'pageRange' => 3];
+		$this->setPagination($configPagination);
+		$this->_view->pagination	= new Pagination($totalItems['all'], $this->_pagination);
+
 		$this->_view->itemsCount = $this->_model->countItem($this->_arrParam);
 		$this->_view->items = $this->_model->listItems($this->_arrParam);
 		$this->_view->render($this->_arrParam['controller'].DS.'index');

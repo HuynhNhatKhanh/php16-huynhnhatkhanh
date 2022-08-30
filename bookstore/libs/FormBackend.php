@@ -22,7 +22,7 @@ class FormBackend {
         ',$idForm, $name ,$xhtmlOptions);
         return $xhtml;
     }
-    public static function label($forId, $text, $required = false){
+    public static function label($forId, $text, $required = true){
         $class = 'col-sm-2 col-form-label text-sm-right';
         if($required == true)  $class = 'col-sm-2 col-form-label text-sm-right required';
 

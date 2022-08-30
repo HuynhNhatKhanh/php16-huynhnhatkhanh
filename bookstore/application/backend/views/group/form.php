@@ -2,7 +2,7 @@
     $params = $this->params;
     $data   = $this->data;
     $linkIndex = URL::createLink($params['module'], $params['controller'], 'index');
-    $lblName   = FormBackend::label('name', 'Name', true);
+    $lblName   = FormBackend::label('name', 'Name');
     $inputName = FormBackend::wrap('',FormBackend::input( 'text', 'form[name]', 'form[name]', @$data['name']));
     $rowName   = FormBackend::row($lblName, $inputName);
 
