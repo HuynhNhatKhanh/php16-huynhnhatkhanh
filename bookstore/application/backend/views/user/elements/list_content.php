@@ -3,21 +3,29 @@
     // print_r($this->items);
     // echo '</pre>';
     $params = $this->params;
+    $searchValue = isset($params['search']) ?  $params['search'] : '';
 
+    $keySelected = 
+    [
+        'admin' => 'Admin',
+        'manager' => 'Manager',
+        'member' => 'Member',
+    ];
     $xhtml = '';
     foreach ($this->items as $key => $item) {
 
-        $id = $item['id'];
-        $username = $item['username'];
-        $fullname = $item['fullname'];
-        $email = $item['email'];
-        $status = HelperBackend::showItemStatus($params['module'], $params['controller'], $id, $item['status']);
-        $created = HelperBackend::showItemHistory($item['created_by'], $item['created']);
-        $buttonEdit = HelperBackend::showAction($params['module'], $params['controller'], $id, 'edit');
-        $buttonDelete = HelperBackend::showAction($params['module'], $params['controller'], $id, 'delete');
+        $id                   = $item['id'];
+        $username             = HelperBackend::highlight($searchValue, $item['username']);
+        $fullname             = HelperBackend::highlight($searchValue, $item['fullname']);
+        $email                = HelperBackend::highlight($searchValue, $item['email']);
+        $status               = HelperBackend::showItemStatus($params['module'], $params['controller'], $id, $item['status']);
+        $created              = HelperBackend::showItemHistory($item['created_by'], $item['created']);
+        $buttonEdit           = HelperBackend::showAction($params['module'], $params['controller'], $id, 'edit');
+        $buttonDelete         = HelperBackend::showAction($params['module'], $params['controller'], $id, 'delete');
         $buttonChangePassword = HelperBackend::showAction($params['module'], $params['controller'], $id, 'changePassword');
-        $checkbox = HelperBackend::checkbox($id);
-        
+        $checkbox             = HelperBackend::showCheckbox($id);
+        $groupAcp             = HelperBackend::showButtonSelect($keySelected, $item['group_acp']);
+
         $xhtml .= '
         <tr class="">
             <td class="text-center">'.$checkbox.'</td>
@@ -27,11 +35,11 @@
                 <p class="mb-0">Fullname: '.$fullname.'</p>
                 <p class="mb-0">Email: '.$email.'</p>
             </td>
-            <td class="text-center position-relative"><select name="select-group" class="custom-select custom-select-sm" style="width: unset" id="2" data-id="2">
-                    <option value="1">Admin</option>
-                    <option value="2" selected="">Manager</option>
-                    <option value="3">Member</option>
-                </select></td>
+            <td class="text-center position-relative">
+                <select name="select-group" class="custom-select custom-select-sm" style="width: unset" id="2" data-id="2">
+                    '.$groupAcp.'
+                </select>
+            </td>
             <td class="text-center position-relative">'.$status.'</td>
             <td class="text-center">'.$created.'</td>
 
@@ -208,7 +216,7 @@
             </tr>
 
             <tr class=""> -->
-                <td class="text-center">
+                <!-- <td class="text-center">
                     <div class="custom-control custom-checkbox">
                         <input class="custom-control-input" type="checkbox" id="checkbox-8" name="checkbox[]" value="8">
                         <label for="checkbox-8" class="custom-control-label"></label>
@@ -246,7 +254,7 @@
                         <i class="fas fa-trash-alt"></i>
                     </a>
                 </td>
-            </tr>
+            </tr> -->
         </tbody>
     </table>
 </form>

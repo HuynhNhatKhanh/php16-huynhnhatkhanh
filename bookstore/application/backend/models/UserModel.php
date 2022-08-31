@@ -9,15 +9,22 @@ class UserModel extends Model
 
 	public function countItem($params, $option = null){
 	
-		$query[]	= "SELECT `status` COUNT(`status`) AS `count`";
+		$query[]	= "SELECT `status`, COUNT(`id`) AS `count`";
 		$query[]	= "FROM `$this->table`";
 		$query[]	= "WHERE `id` > 0";
-		
+		if(isset(($params['filter_groupacp'])) && ($params['filter_groupacp']) != 'default'){
+			$filterGroupAcp = $params['filter_groupacp'];
+			$query[] = "AND `group_acp` = '$filterGroupAcp'";
+		}
+		if (isset($params['search']) && !empty(trim($params['search']))) {
+			$searchValue = trim($params['search']);
+			$query[]     = "AND `username` LIKE '%$searchValue%'";
+			$query[]     = "OR `fullname` LIKE '%$searchValue%'";
+			$query[]     = "OR `email` LIKE '%$searchValue%'";
+		}
 		$query[]	= "GROUP BY `status`";
-
 		$query		= implode(" ", $query);
 		$result		= $this->listRecord($query);
-
 		$result		= array_combine(array_column($result, 'status'), array_column($result, 'count'));
 		$result	    = ['all' => array_sum($result)] + $result;
 		return $result;
@@ -25,31 +32,32 @@ class UserModel extends Model
 
 	public function listItems($params)
 	{
-		$query[] = "SELECT `id`, `username`, `email`,`fullname`, `password`, `created`, `created_by`, `modified`, `modified_by`, `status`, `ordering`";
+		$query[] = "SELECT `id`, `username`, `email`,`fullname`, `password`, `created`, `created_by`, `modified`, `modified_by`, `status`, `group_acp`, `ordering`";
 		$query[]     = "FROM `$this->table`";
 		$query[]     = "WHERE `id` > 0";
 
-		// if (isset(($params['filter_groupacp'])) && ($params['filter_groupacp']) != 'default') {
-		// 	$filterGroupAcp = $params['filter_groupacp'];
-		// 	$query[] = "AND `group_acp` = '$filterGroupAcp'";
-		// }
-		// if (isset($params['search']) && !empty(trim($params['search']))) {
-		// 	$searchValue = trim($params['search']);
-		// 	$query[]     = "AND `name` LIKE '%$searchValue%'";
-		// }
+		if (isset(($params['filter_groupacp'])) && ($params['filter_groupacp']) != 'default') {
+			$filterGroupAcp = $params['filter_groupacp'];
+			$query[] = "AND `group_acp` = '$filterGroupAcp'";
+		}
+		if (isset($params['filter_status']) && $params['filter_status'] != 'all') {
+			$statusValue = $params['filter_status'];
+			$query[]     = "AND `status`='$statusValue' ";
+		}
+		if (isset($params['search']) && !empty(trim($params['search']))) {
+			$searchValue = trim($params['search']);
+			$query[]     = "AND `username` LIKE '%$searchValue%'";
+			$query[]     = "OR `fullname` LIKE '%$searchValue%'";
+			$query[]     = "OR `email` LIKE '%$searchValue%'";
+		}
 
-		// if (isset($params['filter_status']) && $params['filter_status'] != 'all') {
-		// 	$statusValue = $params['filter_status'];
-		// 	$query[]     = "AND `status`='$statusValue' ";
-		// }
-
-		// PAGINATION
-		// $pagination			= $params['pagination'];
-		// $totalItemsPerPage	= $pagination['totalItemsPerPage'];
-		// if($totalItemsPerPage > 0){
-		// 	$position	= ($pagination['currentPage']-1)*$totalItemsPerPage;
-		// 	$query[]	= "LIMIT $position, $totalItemsPerPage";
-		// }
+		//PAGINATION
+		$pagination			= $params['pagination'];
+		$totalItemsPerPage	= $pagination['totalItemsPerPage'];
+		if($totalItemsPerPage > 0){
+			$position	= ($pagination['currentPage']-1)*$totalItemsPerPage;
+			$query[]	= "LIMIT $position, $totalItemsPerPage";
+		}
 
 		$query        = implode(" ", $query);
 		$result        = $this->listRecord($query);
@@ -92,20 +100,26 @@ class UserModel extends Model
 	{
 		if ($option['task'] == 'add') {
 			$params['created'] = date('Y-m-d H:i:s');
+			$params['created_by'] = 'dev';
 			$this->insert($params);
+			if ($this->affectedRows()) {
+				Session::set('message', NOTICE_ADD_ITEM_SUCCESS);
+			}
 		}
 		if ($option['task'] == 'edit') {
-
 			$params['modified'] = date('Y-m-d H:i:s');
+			$params['modified_by'] = 'dev';
 			$id = $params['id'];
-
 			unset($params['id']);
 			$this->update($params, [['id', $id]]);
+			if ($this->affectedRows()) {
+				Session::set('message', NOTICE_UPDATE_ITEM_SUCCESS);
+			}
 		}
 	}
 	public function getItem($params)
 	{
-		$query = "SELECT `id`,`name`, `status`,`group_acp` FROM `$this->table` WHERE `id` = {$params['id']}";
+		$query = "SELECT `id`,`username`, `fullname`, `email`, `password`, `status`,`group_acp` FROM `$this->table` WHERE `id` = {$params['id']}";
 		$result = $this->singleRecord($query);
 		return $result;
 	}
@@ -121,4 +135,3 @@ class UserModel extends Model
 		}
 	}
 }
-//`id`, `name`, `group_acp`, `created`, `created_by`, `modified`, `modified_by`, `status`, `ordering`

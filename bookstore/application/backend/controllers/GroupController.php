@@ -16,7 +16,7 @@ class GroupController extends Controller{
 		//$this->_model->filterGroupAcp($this->_arrParam);
 		
 		$totalItems					= $this->_model->countItem($this->_arrParam, null);
-		$configPagination = ['totalItemsPerPage'	=> 2, 'pageRange' => 3];
+		$configPagination = ['totalItemsPerPage'	=> 4, 'pageRange' => 3];
 		$this->setPagination($configPagination);
 		$this->_view->pagination	= new Pagination($totalItems['all'], $this->_pagination);
 

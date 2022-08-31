@@ -13,11 +13,14 @@
     $numberOfStatus = 0;
     if(isset($params['filter_status'])){
         $filterPage['filter_status'] = $params['filter_status'];
-        if($params['filter_status'] == 'active'){
-            $numberOfStatus = $this->itemsCount['active'];
+        if($params['filter_status'] == 'all'){
+            $numberOfStatus = $this->itemsCount['all'];
+        }
+        if($params['filter_status'] == 'active' ){
+            if( @$this->itemsCount['inactive'] != $this->itemsCount['all']) $numberOfStatus = $this->itemsCount['active'];
         }
         if($params['filter_status'] == 'inactive'){
-            $numberOfStatus = $this->itemsCount['inactive'];
+            if( @$this->itemsCount['active'] != $this->itemsCount['all'])  $numberOfStatus = $this->itemsCount['inactive'];
         }
     }
     if(isset($params['filter_groupacp'])){

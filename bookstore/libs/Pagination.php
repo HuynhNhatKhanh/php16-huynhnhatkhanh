@@ -23,8 +23,12 @@ class Pagination{
 
 		if($numberOfStatus != 0){
 			$this->totalItems = $numberOfStatus;
-			$this->totalPage			= ceil($numberOfStatus/$pagination['totalItemsPerPage']);
+			$this->totalPage  = ceil($numberOfStatus/$pagination['totalItemsPerPage']);
 		}
+		// else if($numberOfStatus == 0){
+		// 	$this->totalItems = 0;
+		// 	$this->totalPage  = 0;
+		// }
 		
 
 		$paginationHTML = '';

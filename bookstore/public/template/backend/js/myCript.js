@@ -3,10 +3,16 @@ $(document).ready(function (){
     $('.btn-delete').click(function (e) { 
         e.preventDefault();
         let choice = confirm("Xác nhận xoá!");
-      
         if (choice == true) {
             window.location.href = $(this).attr('href');
         }
+        // Swal.fire({
+        //     position: 'center-center',
+        //     icon: 'success',
+        //     title: 'Xoá dữ liệu thành công',
+        //     showConfirmButton: false,
+        //     timer: 1500
+        // });
        
     });
     // Check all, Uncheck all
@@ -35,12 +41,13 @@ $(document).ready(function (){
             }
         }else{
             
-            Swal.fire(
-                'Good job!',
-                'You clicked the button!',
-                'success'
-              )
-              //alert ("Vui long chon action");
+            // Swal.fire(
+            //     'Good job!',
+            //     'You clicked the button!',
+            //     'success'
+            //   )
+            
+              alert ("Vui long chon action");
         }
     });
 

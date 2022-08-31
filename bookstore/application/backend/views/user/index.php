@@ -1,6 +1,10 @@
+<?php
+    $params = $this->params;
+?>
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
+        <?= $message = HelperBackend::showNotice();?>
         <!-- Search & Filter -->
         <?php require_once "elements/search_filter.php"?>
         <!-- List -->
