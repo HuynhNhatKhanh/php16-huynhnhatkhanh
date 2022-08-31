@@ -13,7 +13,7 @@ class HelperBackend
             $icon = 'minus';
         }
         $xhtml = '';
-        $xhtml = '<a href="'.URL::createLink($module, $controller,'changeStatus',[ 'id' => $id, 'status' => $statusValue]).'" class="my-btn-state rounded-circle btn btn-sm btn-'.$class.'"><i class="fas fa-'.$icon.'"></i></a>';
+        $xhtml = '<a href="'.URL::createLink($module, $controller,'changeStatus',[ 'id' => $id, 'status' => $statusValue]).'" class="my-btn-state rounded-circle btn-ajax-status btn btn-sm btn-'.$class.'"><i class="fas fa-'.$icon.'"></i></a>';
         return $xhtml;
     }
     public static function showItemGroupAcp($module, $controller, $id, $groupAcpValue)
@@ -28,7 +28,7 @@ class HelperBackend
             $icon = 'minus';
         }
         $xhtml = '';
-        $xhtml = '<a href="'.URL::createLink($module, $controller,'changeGroupAcp', [ 'id' => $id, 'groupAcp' => $groupAcpValue]).'" class="my-btn-state rounded-circle btn btn-sm btn-'.$class.'"><i class="fas fa-'.$icon.'"></i></a>';
+        $xhtml = '<a href="'.URL::createLink($module, $controller,'changeGroupAcp', [ 'id' => $id, 'groupAcp' => $groupAcpValue]).'" class="my-btn-state rounded-circle btn-ajax-group-acp btn btn-sm btn-'.$class.'"><i class="fas fa-'.$icon.'"></i></a>';
         return $xhtml;
     }
     public static function showAction($module, $controller, $id , $action)

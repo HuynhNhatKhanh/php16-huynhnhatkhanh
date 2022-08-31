@@ -26,12 +26,14 @@ class GroupController extends Controller{
 	}
 	
 	public function changeStatusAction(){
-		$this->_model->changeStatus($this->_arrParam);
-		URL::redirect(URL::createLink($this->_arrParam['module'], $this->_arrParam['controller'], 'index'));
+		$result = $this->_model->changeStatus($this->_arrParam);
+		echo $result;
+		// URL::redirect(URL::createLink($this->_arrParam['module'], $this->_arrParam['controller'], 'index'));
 	}
 	public function changeGroupAcpAction(){
-		$this->_model->changeGroupAcp($this->_arrParam);
-		URL::redirect(URL::createLink($this->_arrParam['module'], $this->_arrParam['controller'], 'index'));
+		$result = $this->_model->changeGroupAcp($this->_arrParam);
+		echo $result;
+		//URL::redirect(URL::createLink($this->_arrParam['module'], $this->_arrParam['controller'], 'index'));
 	}
 	public function deleteAction(){
 		$this->_model->deleteItem($this->_arrParam);

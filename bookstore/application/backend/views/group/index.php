@@ -4,7 +4,7 @@ $params = $this->params;
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
-        <?= $message = HelperBackend::showNotice();?>
+        <!-- <?= $message = HelperBackend::showNotice();?> -->
         
         <!-- Search & Filter -->
         <?php require_once "elements/searchFilter.php" ?>

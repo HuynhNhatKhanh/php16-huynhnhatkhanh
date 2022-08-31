@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th8 17, 2022 lúc 02:02 PM
+-- Thời gian đã tạo: Th8 31, 2022 lúc 06:59 AM
 -- Phiên bản máy phục vụ: 10.4.22-MariaDB
 -- Phiên bản PHP: 7.4.27
 
@@ -149,11 +149,14 @@ CREATE TABLE `group` (
 --
 
 INSERT INTO `group` (`id`, `name`, `group_acp`, `created`, `created_by`, `modified`, `modified_by`, `status`, `ordering`, `privilege_id`, `picture`) VALUES
-(1, 'Admin', 'yes', '2013-11-11 07:15:24', 'admin', '2013-11-12 04:23:22', 'admin', 'inactive', 5, '1,2,3,4,5,6,7,8,9,10', ''),
-(2, 'Manager', 'no', '2013-11-07 02:02:20', 'admin', '2013-12-03 07:19:19', 'admin', 'active', 4, '1,2,3,4,6,7,8,9,10', ''),
-(3, 'Member', 'no', '2013-11-12 05:05:15', 'admin', '2013-12-03 08:25:33', 'admin', 'inactive', 2, '', ''),
-(7, 'Manager', 'no', '2013-11-07 06:19:32', 'admin', '2013-12-03 18:48:48', 'admin', 'active', 4, '1,2,3,4,6,7,8,9,10', ''),
-(8, 'Manager', 'yes', '2013-11-07 07:25:42', 'admin', '2013-12-03 18:06:26', 'admin', 'inactive', 4, '1,2,3,4,6,7,8,9,10', '');
+(1, 'Admin test', 'no', '2013-11-11 07:15:24', 'admin', '2022-08-26 05:39:55', 'dev', 'active', 5, '1,2,3,4,5,6,7,8,9,10', ''),
+(2, 'Manager', 'yes', '2013-11-07 02:02:20', 'admin', '2013-12-03 07:19:19', 'admin', 'active', 4, '1,2,3,4,6,7,8,9,10', ''),
+(3, 'Member', 'yes', '2013-11-12 05:05:15', 'admin', '2022-08-18 21:31:44', 'admin', 'active', 2, '', ''),
+(10, 'Admin test', 'yes', '2013-11-11 07:15:24', 'admin', '2022-08-18 21:30:32', 'admin', 'inactive', 5, '1,2,3,4,5,6,7,8,9,10', ''),
+(14, 'Manager Test1', 'no', '2022-08-25 18:19:53', NULL, '2022-08-25 18:21:24', 'dev', 'active', 10, '', ''),
+(15, 'Huỳnh Nhật Khánh', 'no', '2022-08-25 18:21:39', 'dev', '2022-08-25 18:21:51', 'dev', 'active', 10, '', ''),
+(16, 'Huynh Khanh', 'yes', '2022-08-25 18:25:36', 'dev', '2022-08-25 18:39:24', 'dev', 'inactive', 10, '', ''),
+(17, 'Huỳnh Nhật Khánh', 'no', '2022-08-25 18:35:21', 'dev', '2022-08-26 06:11:54', 'dev', 'inactive', 10, '', '');
 
 -- --------------------------------------------------------
 
@@ -197,32 +200,32 @@ CREATE TABLE `user` (
   `email` varchar(255) NOT NULL,
   `fullname` varchar(255) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
-  `created` date DEFAULT '0000-00-00',
+  `created` datetime DEFAULT NULL,
   `created_by` varchar(45) DEFAULT NULL,
-  `modified` date DEFAULT '0000-00-00',
+  `modified` datetime DEFAULT NULL,
   `modified_by` varchar(45) DEFAULT NULL,
-  `register_date` datetime DEFAULT '0000-00-00 00:00:00',
+  `register_date` datetime DEFAULT NULL,
   `register_ip` varchar(25) DEFAULT NULL,
-  `status` tinyint(1) DEFAULT 0,
+  `status` varchar(45) DEFAULT NULL,
   `ordering` int(11) DEFAULT 10,
-  `group_id` int(11) NOT NULL
+  `group_id` int(11) NOT NULL,
+  `group_acp` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `email`, `fullname`, `password`, `created`, `created_by`, `modified`, `modified_by`, `register_date`, `register_ip`, `status`, `ordering`, `group_id`) VALUES
-(1, 'nvan', 'nvan@gmail.com', 'Nguyễn Văn An', 'e10adc3949ba59abbe56e057f20f883e', '0000-00-00', '1', '0000-00-00', NULL, '0000-00-00 00:00:00', NULL, 1, 4, 1),
-(2, 'nvb', 'nvb@gmail.com', 'Nguyễn Văn B', 'e10adc3949ba59abbe56e057f20f883e', '0000-00-00', '1', '0000-00-00', NULL, '0000-00-00 00:00:00', NULL, 1, 3, 2),
-(3, 'nvc', 'nvc@gmail.com', 'Nguyễn Văn C', 'e10adc3949ba59abbe56e057f20f883e', '0000-00-00', '1', '0000-00-00', NULL, '0000-00-00 00:00:00', NULL, 1, 2, 3),
-(4, 'admin', 'admin@gmail.com', 'Admin', 'e10adc3949ba59abbe56e057f20f883e', '0000-00-00', '1', '0000-00-00', NULL, '0000-00-00 00:00:00', NULL, 1, 1, 2),
-(5, 'nguyenvana1', 'lthlan54@gmail.com', 'Admin 3', '3b269d99b6c31f1467421bbcfdec7908', '0000-00-00', NULL, '0000-00-00', NULL, '2013-11-19 18:11:45', '127.0.0.1', 0, 10, 0),
-(6, 'nguyenvana2', 'lthlan55@gmail.com', 'Admin 3', '3b269d99b6c31f1467421bbcfdec7908', '0000-00-00', NULL, '0000-00-00', NULL, '2013-11-19 18:11:09', '127.0.0.1', 0, 10, 0),
-(7, 'nguyenvana4', 'lthlan56@gmail.com', '', '3b269d99b6c31f1467421bbcfdec7908', '0000-00-00', NULL, '0000-00-00', NULL, '2013-11-19 18:11:08', '127.0.0.1', 0, 10, 0),
-(8, 'nguyenvana12', 'lthlan541@gmail.com', 'Admin 3', '3b269d99b6c31f1467421bbcfdec7908', '0000-00-00', NULL, '2013-12-02', '4', '2013-11-19 18:11:06', '127.0.0.1', 1, 12, 1),
-(9, 'nguyenvana122', 'lthlan5412@gmail.com', '', '3b269d99b6c31f1467421bbcfdec7908', '2013-12-02', '4', '2013-12-02', '4', '0000-00-00 00:00:00', NULL, 0, 1, 3),
-(10, 'admin01', 'admin01@gmail.com', 'Admin 123', 'e5c0fe73b84c06f43393b87a9c6acaa1', '0000-00-00', NULL, '2013-12-07', 'admin', '2013-12-03 08:12:23', '127.0.0.1', 0, 10, 2);
+INSERT INTO `user` (`id`, `username`, `email`, `fullname`, `password`, `created`, `created_by`, `modified`, `modified_by`, `register_date`, `register_ip`, `status`, `ordering`, `group_id`, `group_acp`) VALUES
+(1, 'HNKhanh', 'khanhhuynh28082000@gmail.com', 'Huỳnh Nhật Khánh', 'e10adc3949ba59abbe56e057f20f883e', '2022-08-26 11:21:29', '1', '2022-08-31 03:48:31', 'dev', '2022-08-26 11:20:22', NULL, 'inactive', 4, 1, 'admin'),
+(2, 'Admin', 'Admin@gmail.com', 'Nguyễn Phú Trọng', 'e10adc3949ba59abbe56e057f20f883e', '2022-08-26 11:21:33', 'admin', '2022-08-26 11:21:31', NULL, '2022-08-26 11:21:35', NULL, 'active', 3, 2, 'manager'),
+(11, 'Manager', 'Manager@gmail.com', 'Võ Văn Kiệt', 'e10adc3949ba59abbe56e057f20f883e', '2022-08-26 11:21:33', 'admin', '2022-08-26 11:21:31', NULL, '2022-08-26 11:21:35', NULL, 'inactive', 3, 2, 'member'),
+(12, 'HNKhanh', 'khanhhuynh28082000@gmail.com', 'Huỳnh Nhật Khánh', 'e10adc3949ba59abbe56e057f20f883e', '2022-08-26 11:21:29', '1', '2022-08-26 11:20:27', NULL, '2022-08-26 11:20:22', NULL, 'inactive', 4, 1, 'admin'),
+(13, 'Admin', 'Admin@gmail.com', 'Nguyễn Phú Trọng', 'e10adc3949ba59abbe56e057f20f883e', '2022-08-26 11:21:33', 'admin', '2022-08-26 11:21:31', NULL, '2022-08-26 11:21:35', NULL, 'inactive', 3, 2, 'manager'),
+(15, 'HNKhanh', 'khanhhuynh28082000@gmail.com', 'Huỳnh Nhật Khánh', 'e10adc3949ba59abbe56e057f20f883e', '2022-08-26 11:21:29', '1', '2022-08-26 11:20:27', NULL, '2022-08-26 11:20:22', NULL, 'inactive', 4, 1, 'admin'),
+(17, 'HNK', '18521693@gm.uit.edu.vn', 'Huỳnh Nhật Khánh', 'asa$', '2022-08-31 03:47:36', 'dev', NULL, NULL, NULL, NULL, 'active', 10, 0, 'admin'),
+(18, 'Admin', 'Admin@gmail.com', 'Nguyễn Phú Trọng', 'e10adc3949ba59abbe56e057f20f883e', '2022-08-26 11:21:33', 'admin', '2022-08-26 11:21:31', NULL, '2022-08-26 11:21:35', NULL, 'inactive', 3, 2, 'manager'),
+(19, 'HNKhanh', 'khanhhuynh28082000@gmail.com', 'Huỳnh Nhật Khánh', 'e10adc3949ba59abbe56e057f20f883e', '2022-08-26 11:21:29', '1', '2022-08-26 11:20:27', NULL, '2022-08-26 11:20:22', NULL, 'inactive', 4, 1, 'admin');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -284,7 +287,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT cho bảng `group`
 --
 ALTER TABLE `group`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT cho bảng `privilege`
@@ -296,7 +299,7 @@ ALTER TABLE `privilege`
 -- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

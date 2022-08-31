@@ -5,6 +5,7 @@
     $params = $this->params;
     $searchValue = isset($params['search']) ?  $params['search'] : '';
 
+
     $keySelected = 
     [
         'admin' => 'Admin',
@@ -36,9 +37,11 @@
                 <p class="mb-0">Email: '.$email.'</p>
             </td>
             <td class="text-center position-relative">
-                <select name="select-group" class="custom-select custom-select-sm" style="width: unset" id="2" data-id="2">
-                    '.$groupAcp.'
-                </select>
+                <form method="get" id="group-acp">
+                    <select name="select-group" class="custom-select custom-select-sm" style="width: unset" id="select-group" data-id="2">
+                        '.$groupAcp.'
+                    </select>
+                </form>
             </td>
             <td class="text-center position-relative">'.$status.'</td>
             <td class="text-center">'.$created.'</td>

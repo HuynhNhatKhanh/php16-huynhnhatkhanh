@@ -66,6 +66,8 @@ class GroupModel extends Model
 		$status = ($params['status'] == 'active') ?  'inactive' : 'active';
 		$query = "UPDATE `$this->table` SET `status` = '$status' WHERE  `id` = '$id'";
 		$this->query($query);
+
+		return HelperBackend::showItemStatus($params['module'],$params['controller'], $id, $status);
 		if ($this->affectedRows()) {
 			Session::set('message', NOTICE_UPDATE_STATUS_SUCCESS);
 		}
@@ -76,6 +78,8 @@ class GroupModel extends Model
 		$groupAcp = ($params['groupAcp'] == 'yes') ?  'no' : 'yes';
 		$query = "UPDATE `$this->table` SET `group_acp` = '$groupAcp' WHERE  `id` = '$id'";
 		$this->query($query);
+
+		return HelperBackend::showItemGroupAcp($params['module'],$params['controller'], $id, $groupAcp);
 		if ($this->affectedRows()) {
 			Session::set('message', NOTICE_UPDATE_GROUP_SUCCESS);
 		}
