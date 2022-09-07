@@ -77,7 +77,7 @@ $(document).ready(function (){
             url: url,
             success: function(response){
                 td.html(response);
-                td.find('a.btn-ajax-status').notify("Success", { classname: 'success', position: 'top-center'})
+                td.find('a.btn-ajax-status').notify("Success", {className: 'success', position: 'top-center'})
             }
         })
     });
@@ -91,7 +91,7 @@ $(document).ready(function (){
             url: url,
             success: function(response){
                 td.html(response);
-                td.find('a.btn-ajax-group-acp').notify("Success", {classname: 'success', position: 'top-center'})
+                td.find('a.btn-ajax-group-acp').notify("Success", {className: 'success', position: 'top-center'})
             }
         })
     });

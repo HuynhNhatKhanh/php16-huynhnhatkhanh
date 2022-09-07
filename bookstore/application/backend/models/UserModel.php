@@ -9,9 +9,11 @@ class UserModel extends Model
 
 	public function countItem($params, $option = null){
 	
-		$query[]	= "SELECT `status`, COUNT(`id`) AS `count`";
+		$query[]	= "SELECT `$this->table`.`status`, COUNT(`$this->table`.`id`) AS `count`";
 		$query[]	= "FROM `$this->table`";
-		$query[]	= "WHERE `id` > 0";
+		$query[]    = "LEFT JOIN `group`";
+		$query[]    = "ON `$this->table`.`group_id` = `group`.`id`";
+		$query[]	= "WHERE `$this->table`.`id` > 0";
 		if(isset(($params['filter_groupacp'])) && ($params['filter_groupacp']) != 'default'){
 			$filterGroupAcp = $params['filter_groupacp'];
 			$query[] = "AND `group_acp` = '$filterGroupAcp'";
@@ -24,44 +26,68 @@ class UserModel extends Model
 		}
 		$query[]	= "GROUP BY `status`";
 		$query		= implode(" ", $query);
+
+		// echo $query;
+		// die();
+
 		$result		= $this->listRecord($query);
 		$result		= array_combine(array_column($result, 'status'), array_column($result, 'count'));
 		$result	    = ['all' => array_sum($result)] + $result;
 		return $result;
 	}
 
-	public function listItems($params)
+	public function listItems($params, $option = null)
 	{
-		$query[] = "SELECT `id`, `username`, `email`,`fullname`, `password`, `created`, `created_by`, `modified`, `modified_by`, `status`, `group_acp`, `ordering`";
-		$query[]     = "FROM `$this->table`";
-		$query[]     = "WHERE `id` > 0";
+		if($option == 'select-all'){
+			$query[] = "SELECT DISTINCT `$this->table`.`group_id`, `$this->table`.`id`,`$this->table`.`username`, `$this->table`.`email`,`$this->table`.`fullname`, `$this->table`.`password`, `$this->table`.`created`, `$this->table`.`created_by`, `$this->table`.`modified`, `$this->table`.`modified_by`, `$this->table`.`status`, `$this->table`.`group_acp`, `$this->table`.`ordering`, `group`.`name`";
+			$query[]     = "FROM `$this->table`";
+			$query[]     = "LEFT JOIN `group`";
+			$query[]     = "ON `$this->table`.`group_id` = `group`.`id`";
+			$query[]     = "WHERE `$this->table`.`id` > 0";
+			
+			if (isset(($params['filter_groupacp'])) && ($params['filter_groupacp']) != 'default') {
+				$filterGroupAcp = $params['filter_groupacp'];
+				$query[] = "AND `group_acp` = '$filterGroupAcp'";
+			}
+			if (isset($params['filter_status']) && $params['filter_status'] != 'all') {
+				$statusValue = $params['filter_status'];
+				$query[]     = "AND `status`='$statusValue' ";
+			}
+			if (isset($params['search']) && !empty(trim($params['search']))) {
+				$searchValue = trim($params['search']);
+				$query[]     = "AND `username` LIKE '%$searchValue%'";
+				$query[]     = "OR `fullname` LIKE '%$searchValue%'";
+				$query[]     = "OR `email` LIKE '%$searchValue%'";
+			}
 
-		if (isset(($params['filter_groupacp'])) && ($params['filter_groupacp']) != 'default') {
-			$filterGroupAcp = $params['filter_groupacp'];
-			$query[] = "AND `group_acp` = '$filterGroupAcp'";
-		}
-		if (isset($params['filter_status']) && $params['filter_status'] != 'all') {
-			$statusValue = $params['filter_status'];
-			$query[]     = "AND `status`='$statusValue' ";
-		}
-		if (isset($params['search']) && !empty(trim($params['search']))) {
-			$searchValue = trim($params['search']);
-			$query[]     = "AND `username` LIKE '%$searchValue%'";
-			$query[]     = "OR `fullname` LIKE '%$searchValue%'";
-			$query[]     = "OR `email` LIKE '%$searchValue%'";
-		}
+			//PAGINATION
+			$pagination			= $params['pagination'];
+			$totalItemsPerPage	= $pagination['totalItemsPerPage'];
+			if($totalItemsPerPage > 0){
+				$position	= ($pagination['currentPage']-1)*$totalItemsPerPage;
+				$query[]	= "LIMIT $position, $totalItemsPerPage";
+			}
 
-		//PAGINATION
-		$pagination			= $params['pagination'];
-		$totalItemsPerPage	= $pagination['totalItemsPerPage'];
-		if($totalItemsPerPage > 0){
-			$position	= ($pagination['currentPage']-1)*$totalItemsPerPage;
-			$query[]	= "LIMIT $position, $totalItemsPerPage";
+			$query        = implode(" ", $query);
+			// echo $query;
+			// die();
+			$result        = $this->listRecord($query);
+			return $result;
 		}
-
-		$query        = implode(" ", $query);
-		$result        = $this->listRecord($query);
-		return $result;
+		if($option == 'get-groupid-name'){
+			$query[] = "SELECT DISTINCT `$this->table`.`group_id`, `group`.`name`";
+			$query[]     = "FROM `$this->table`";
+			$query[]     = "LEFT JOIN `group`";
+			$query[]     = "ON `$this->table`.`group_id` = `group`.`id`";
+			$query[]     = "WHERE `$this->table`.`id` > 0";
+			$query        = implode(" ", $query);
+			// echo $query;
+			// die();
+			$result        = $this->listRecord($query);
+			$result		= array_combine(array_column($result, 'group_id'), array_column($result, 'name'));
+			//$result	    = ['all' => array_sum($result)] + $result;
+			return $result;
+		}
 	}
 
 	public function changeStatus($params)
@@ -71,6 +97,7 @@ class UserModel extends Model
 		$query = "UPDATE `$this->table` SET `status` = '$status' WHERE  `id` = '$id'";
 		$this->query($query);
 		if ($this->affectedRows()) {
+			return HelperBackend::showItemStatus($params['module'],$params['controller'], $id, $status);
 			Session::set('message', NOTICE_UPDATE_STATUS_SUCCESS);
 		}
 	}
@@ -119,7 +146,9 @@ class UserModel extends Model
 	}
 	public function getItem($params)
 	{
-		$query = "SELECT `id`,`username`, `fullname`, `email`, `password`, `status`,`group_acp` FROM `$this->table` WHERE `id` = {$params['id']}";
+		$query = "SELECT `$this->table`.`id`,`$this->table`.`username`, `$this->table`.`fullname`, `$this->table`.`email`, `$this->table`.`password`, `$this->table`.`status`,`$this->table`.`group_acp` 
+		FROM `$this->table` 
+		WHERE `id` = {$params['id']}";
 		$result = $this->singleRecord($query);
 		return $result;
 	}

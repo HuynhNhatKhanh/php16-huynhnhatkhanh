@@ -6,14 +6,16 @@
 
     $searchValue = isset($params['search']) ?  $params['search'] : '';
 
-    $keySelected = 
-    [
-        'default' => '- Select Group -',
-        'admin' => 'Admin',
-        'manager' => 'Manager',
-        'member' => 'Member',
-    ];
-    $buttonSelect = HelperBackend::showButtonSelect($keySelected, $params['filter_groupacp']?? 'default');
+   
+   
+    $itemsGroup = $this->itemsGroup;
+    $itemsGroup['default'] = '- Select Group -';
+    // echo '<pre>';
+    // print_r($this->items);
+    // echo '</pre>';
+    $buttonSelect = HelperBackend::showButtonSelect($this->itemsGroup, $this->items['group_id'] ?? 'default');
+    
+    
 
     $filterStatus = [
         'filter_status'   => $params['filter_status'] ?? 'all',
@@ -51,12 +53,9 @@
     //     $urlGroupAcp .= $inputHiddenFilterSearch;
     // }
 
-    // echo '<pre>';
-    // print_r($this->itemsCount);
-    // echo '</pre>';
-    // echo '<pre>';
-    // print_r($params);
-    // echo '</pre>';
+    
+
+    
 ?>
 
 <div class="card card-info card-outline">

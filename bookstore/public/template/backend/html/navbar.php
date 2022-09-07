@@ -1,4 +1,4 @@
-<?php echo (TEMPLATE_URL. $this->_moduleName)?>
+<?php $linkLogin = URL::createLink('backend', 'index', 'login')?>
 
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
@@ -25,7 +25,7 @@
                 <!-- Menu Footer-->
                 <li class="user-footer">
                     <a href="#" class="btn btn-default btn-flat">Profile</a>
-                    <a href="#" class="btn btn-default btn-flat float-right">Sign out</a>
+                    <a href="<?=$linkLogin?>" class="btn btn-default btn-flat float-right">Sign out</a>
                 </li>
             </ul>
         </li>

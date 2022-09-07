@@ -6,12 +6,7 @@
     $searchValue = isset($params['search']) ?  $params['search'] : '';
 
 
-    $keySelected = 
-    [
-        'admin' => 'Admin',
-        'manager' => 'Manager',
-        'member' => 'Member',
-    ];
+    $itemsGroup = $this->itemsGroup;
     $xhtml = '';
     foreach ($this->items as $key => $item) {
 
@@ -25,7 +20,7 @@
         $buttonDelete         = HelperBackend::showAction($params['module'], $params['controller'], $id, 'delete');
         $buttonChangePassword = HelperBackend::showAction($params['module'], $params['controller'], $id, 'changePassword');
         $checkbox             = HelperBackend::showCheckbox($id);
-        $groupAcp             = HelperBackend::showButtonSelect($keySelected, $item['group_acp']);
+        $groupAcp             = HelperBackend::showButtonSelect($itemsGroup, $item['group_id']);
 
         $xhtml .= '
         <tr class="">

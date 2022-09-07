@@ -67,8 +67,9 @@ class GroupModel extends Model
 		$query = "UPDATE `$this->table` SET `status` = '$status' WHERE  `id` = '$id'";
 		$this->query($query);
 
-		return HelperBackend::showItemStatus($params['module'],$params['controller'], $id, $status);
+		
 		if ($this->affectedRows()) {
+			return HelperBackend::showItemStatus($params['module'],$params['controller'], $id, $status);
 			Session::set('message', NOTICE_UPDATE_STATUS_SUCCESS);
 		}
 	}

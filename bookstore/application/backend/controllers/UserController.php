@@ -21,13 +21,15 @@ class UserController extends Controller{
 		$this->_view->pagination	= new Pagination($totalItems['all'], $this->_pagination);
 
 		$this->_view->itemsCount = $this->_model->countItem($this->_arrParam);
-		$this->_view->items = $this->_model->listItems($this->_arrParam);
+		$this->_view->items = $this->_model->listItems($this->_arrParam,  'select-all');
+		$this->_view->itemsGroup = $this->_model->listItems($this->_arrParam, 'get-groupid-name');
 		$this->_view->render($this->_arrParam['controller'].DS.'index');
 	}
 	
 	public function changeStatusAction(){
-		$this->_model->changeStatus($this->_arrParam);
-		URL::redirect(URL::createLink($this->_arrParam['module'], $this->_arrParam['controller'], 'index'));
+		$result = $this->_model->changeStatus($this->_arrParam);
+		echo $result;
+		//URL::redirect(URL::createLink($this->_arrParam['module'], $this->_arrParam['controller'], 'index'));
 	}
 	public function changeGroupAcpAction(){
 		$this->_model->changeGroupAcp($this->_arrParam);
