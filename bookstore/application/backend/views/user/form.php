@@ -28,15 +28,9 @@
         $selectStatus = FormBackend::wrap(FormBackend::select('form[status]', 'form[status]', $arrSelected, $data['status'] ?? 'default'));
         $rowStatus    = FormBackend::row($lblStatus, $selectStatus);
     
-        $lblGroupAcp = FormBackend::label('group_acp', 'Group');
-        $arrSelected = [
-            'default' => '- Select Group -',
-            'admin' => 'Admin',
-            'manager' => 'Manager',
-            'member' => 'Member',
-        ];
-        $selectGroupAcp = FormBackend::wrap(FormBackend::select('form[group_acp]', 'form[group_acp]', $arrSelected, $data['group_acp'] ?? 'default'));
-        $rowGroupAcp    = FormBackend::row($lblGroupAcp, $selectGroupAcp);
+        $lblGroupId = FormBackend::label('group_id', 'Group');
+        $selectGroupId = FormBackend::wrap(FormBackend::select('form[group_id]', 'form[group_id]', $this->itemsGroup, $data['group_id'] ?? 'default'));
+        $rowGroupId    = FormBackend::row($lblGroupId, $selectGroupId);
     
         $inputId = '';
         if(isset($this->params['id'])){
@@ -72,7 +66,7 @@
             <form action="" method="post" class="mb-0" id="admin-form">
                 <div class="card-body">
                     <?=$inputId ?>
-                    <?=$rowUsername.$rowPassword.$rowEmail.$rowFullname.$rowStatus.$rowGroupAcp?>
+                    <?=$rowUsername.$rowPassword.$rowEmail.$rowFullname.$rowStatus.$rowGroupId?>
                     <!-- <div class="form-group row">
                         <label for="form[username]" class="col-sm-2 col-form-label text-sm-right required">Username</label>
                         <div class="col-xs-12 col-sm-8">

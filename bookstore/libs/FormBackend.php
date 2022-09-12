@@ -7,7 +7,7 @@ class FormBackend {
         return $xhtml;
         
     }
-    public static function select($name, $idForm, $options, $keySelected){
+    public static function select($name, $idForm, $options, $keySelected, $attr = ''){
 
         $xhtmlOptions = '';
         foreach ($options as $key => $value) {
@@ -16,10 +16,10 @@ class FormBackend {
         }
     
         $xhtml = sprintf('
-        <select  id="%s" name="%s" class="custom-select custom-select-sm">
+        <select  id="%s" name="%s" class="custom-select custom-select-sm" %s>
            %s
         </select>
-        ',$idForm, $name ,$xhtmlOptions);
+        ',$idForm, $name, $attr, $xhtmlOptions);
         return $xhtml;
     }
     public static function label($forId, $text, $required = true){

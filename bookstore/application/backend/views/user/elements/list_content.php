@@ -20,7 +20,11 @@
         $buttonDelete         = HelperBackend::showAction($params['module'], $params['controller'], $id, 'delete');
         $buttonChangePassword = HelperBackend::showAction($params['module'], $params['controller'], $id, 'changePassword');
         $checkbox             = HelperBackend::showCheckbox($id);
-        $groupAcp             = HelperBackend::showButtonSelect($itemsGroup, $item['group_id']);
+
+        $linkAjaxGroup = URL::createLink($params['module'], $params['controller'], 'changeGroup', ['id' => $id, 'group_id' => 'value_new']);
+        $attrGroupSelect = "data-url='.$linkAjaxGroup.'";
+        
+        $groupId             = HelperBackend::showButtonSelect($itemsGroup, $item['group_id'], $attrGroupSelect);
 
         $xhtml .= '
         <tr class="">
@@ -32,9 +36,9 @@
                 <p class="mb-0">Email: '.$email.'</p>
             </td>
             <td class="text-center position-relative">
-                <form method="get" id="group-acp">
-                    <select name="select-group" class="custom-select custom-select-sm" style="width: unset" id="select-group" data-id="2">
-                        '.$groupAcp.'
+                <form method="get" id="group-acp">   
+                    <select name="select-group" class="custom-select custom-select-sm" style="width: unset" id="select-group-user"  ">
+                        '.$groupId.'
                     </select>
                 </form>
             </td>

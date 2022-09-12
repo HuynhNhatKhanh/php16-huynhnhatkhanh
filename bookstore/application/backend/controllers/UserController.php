@@ -31,9 +31,9 @@ class UserController extends Controller{
 		echo $result;
 		//URL::redirect(URL::createLink($this->_arrParam['module'], $this->_arrParam['controller'], 'index'));
 	}
-	public function changeGroupAcpAction(){
-		$this->_model->changeGroupAcp($this->_arrParam);
-		URL::redirect(URL::createLink($this->_arrParam['module'], $this->_arrParam['controller'], 'index'));
+	public function changeGroupAction(){
+		$this->_model->changeGroup($this->_arrParam);
+		//URL::redirect(URL::createLink($this->_arrParam['module'], $this->_arrParam['controller'], 'index'));
 	}
 	public function deleteAction(){
 		$this->_model->deleteItem($this->_arrParam);
@@ -64,10 +64,10 @@ class UserController extends Controller{
 			$data = $this->_arrParam['form'];
 			$validate = new Validate($data);
 			$validate->addRule('username', 'string', ['min' => 1, 'max' => 100])
-					//->addRule('password', 'password', ['action' => $task])
+					->addRule('password', 'password', ['action' => $task])
 					->addRule('email', 'email')
 					->addRule('status', 'status')
-					->addRule('group_acp', 'groupAcp');
+					->addRule('group_id', 'groupAcp');
 			$validate->run();
 			$data = $validate->getResult();
 			if($validate->isValid()){
@@ -79,6 +79,7 @@ class UserController extends Controller{
 		}
 		$this->_view->data = $data;
 		$this->_view->pageTitle = $title;
+		$this->_view->itemsGroup = $this->_model->listItems($this->_arrParam, 'get-groupid-name');
 		$this->_view->render($this->_arrParam['controller'].DS.'form');
 	}
 	

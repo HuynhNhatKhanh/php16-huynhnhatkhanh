@@ -99,7 +99,18 @@ class HelperBackend
         </div>', $id, $id, $id);
         return $xhtml;
     }
-    public static function showButtonSelect($options, $keySelected){
+    public static function showButtonSelect($options, $keySelected, $attr=''){
+        $xhtmlOptions = '';
+        foreach ($options as $key => $value) {
+            $selected = $key == $keySelected ?'selected':'';
+            $attrSelected = $key == $keySelected ? $attr :'';
+            $class = 'class ="selected"';
+            $xhtmlOptions .= sprintf('<option value="%s"%s %s %s>%s</option>',$key ,$selected, $attrSelected, $class, $value);
+        }
+        
+        return $xhtmlOptions;
+    }
+    public static function showButtonSelectGroupUser($options, $keySelected){
         $xhtmlOptions = '';
         foreach ($options as $key => $value) {
             $selected = $key == $keySelected ?'selected':'';
@@ -114,6 +125,24 @@ class HelperBackend
             $text = ucfirst($key);
             $link = URL::createLink($module, $controller, 'index',['filter_status' => $key] );
             if(isset($filterStatus['filter_groupacp'])) $link .= '&filter_groupacp='.$filterStatus['filter_groupacp'].'';
+            if(isset($filterStatus['search'])) $link .= '&search='.$filterStatus['search'].'';
+
+            $class = 'secondary';
+            if($key == $filterStatus['filter_status']){
+                $class = 'info';
+            }
+            
+            $xhtml .= sprintf(' 
+            <a href="%s" class="mr-1 btn btn-sm btn-%s">%s <span class="badge badge-pill badge-light">%s</span></a>', $link, $class, $text, $value);
+        }
+        return $xhtml;
+    }
+    public static function showFilterStatusUser($module, $controller, $arrValues, $filterStatus){
+        $xhtml = '';
+        foreach ($arrValues as $key => $value) {
+            $text = ucfirst($key);
+            $link = URL::createLink($module, $controller, 'index',['filter_status' => $key] );
+            if(isset($filterStatus['filter_groupid'])) $link .= '&filter_groupid='.$filterStatus['filter_groupid'].'';
             if(isset($filterStatus['search'])) $link .= '&search='.$filterStatus['search'].'';
 
             $class = 'secondary';

@@ -53,7 +53,7 @@ class Validate{
 	public function run(){
 		foreach($this->rules as $element => $value){
 			if($value['required'] == true && trim($this->source[$element])==null){
-				$this->setError($element, 'is not empty');
+				$this->setError($element, 'Không được rỗng');
 			}else{
 				switch ($value['type']) {
 					case 'int':
@@ -103,7 +103,7 @@ class Validate{
 	// Validate Integer
 	private function validateInt($element, $min = 0, $max = 0){
 		if(!filter_var($this->source[$element], FILTER_VALIDATE_INT, array("options"=>array("min_range"=>$min,"max_range"=>$max)))){
-			$this->setError($element, 'is an invalid number');
+			$this->setError($element, 'Không phải kiểu số');
 		}
 	}
 	
@@ -111,25 +111,25 @@ class Validate{
 	private function validateString($element, $min = 0, $max = 0){
 		$length = strlen($this->source[$element]);
 		if($length < $min) {
-			$this->setError($element, 'is too short');
+			$this->setError($element, 'Kí tự quá ngắn');
 		}elseif($length > $max){
-			$this->setError($element, 'is too long');
+			$this->setError($element, 'Kí tự quá dài');
 		}elseif(!is_string($this->source[$element])){
-			$this->setError($element, 'is an invalid string');
+			$this->setError($element, 'Không phải kiểu kí tự');
 		}
 	}
 	
 	// Validate URL
 	private function validateURL($element){
 		if(!filter_var($this->source[$element], FILTER_VALIDATE_URL)){
-			$this->setError($element, 'is an invalid url');
+			$this->setError($element, 'Url không hợp lệ');
 		}
 	}
 	
 	// Validate Email
 	private function validateEmail($element){
 		if(!filter_var($this->source[$element], FILTER_VALIDATE_EMAIL)){
-			$this->setError($element, 'is an invalid email');
+			$this->setError($element, 'Email không hợp lệ');
 		}
 	}
 	
@@ -153,14 +153,14 @@ class Validate{
 	// Validate Status
 	private function validateStatus($element){
 		if($this->source[$element] == 'default'){
-			$this->setError($element, 'Select status');
+			$this->setError($element, 'Vui lòng chọn status');
 		}
 	}
 
 	// Validate GroupAcp
 	private function validateGroupAcp($element){
 		if($this->source[$element] == 'default'){
-			$this->setError($element, 'Select group');
+			$this->setError($element, 'Vui lòng chọn group');
 		}
 	}
 	
@@ -176,7 +176,7 @@ class Validate{
 		if($options['action'] == 'add' || ($options['action'] == 'edit' && $this->source[$element] )){
 			$pattern = '#^(?=.*\d)(?=.*[A-Z])(?=.*\W).{8,8}$#';	// Php4567!
 			if(!preg_match($pattern, $this->source[$element])){
-				$this->setError($element, 'is an invalid password');
+				$this->setError($element, 'Mật khẩu không hợp lệ');
 			};
 		}
 		

@@ -6,28 +6,17 @@
 
     $searchValue = isset($params['search']) ?  $params['search'] : '';
 
-   
-   
     $itemsGroup = $this->itemsGroup;
-    $itemsGroup['default'] = '- Select Group -';
     // echo '<pre>';
-    // print_r($this->items);
-    // echo '</pre>';
-    $buttonSelect = HelperBackend::showButtonSelect($this->itemsGroup, $this->items['group_id'] ?? 'default');
+    // print_r($this->itemsCount);
+    // echo '</pre>'; 
+    $buttonSelect = HelperBackend::showButtonSelectGroupUser($itemsGroup, $params['filter_groupid'] ?? 'default');
     
-    
-
     $filterStatus = [
         'filter_status'   => $params['filter_status'] ?? 'all',
     ];
-    // if(isset($params['filter_groupacp'])){
-    //     $filterStatus = [
-    //         'filter_status'   => $params['filter_status'] ?? 'all',
-    //         'filter_groupacp' => $params['filter_groupacp']
-    //     ];
-    // }
-    if(isset($params['filter_groupacp'])){
-        $filterStatus['filter_groupacp'] = $params['filter_groupacp'];
+    if(isset($params['filter_groupid'])){
+        $filterStatus['filter_groupid'] = $params['filter_groupid'];
     }
     if(isset($params['search'])){
         $filterStatus['search'] = $params['search'];
@@ -35,19 +24,20 @@
 
     $flag = $filterStatus;
     unset($flag['search']);
-    $linkIndex                 = URL::createLink($params['module'], $params['controller'], 'index', $flag);
-    $buttonStatus              = HelperBackend::showFilterStatus($params['module'], $params['controller'], $this->itemsCount, $filterStatus);
+    $linkIndex    = URL::createLink($params['module'], $params['controller'], 'index', $flag);
+    $buttonStatus = HelperBackend::showFilterStatusUser($params['module'], $params['controller'], $this->itemsCount, $filterStatus);
 
-    $url                       = $inputHiddenModule.$inputHiddenController.$inputHiddenAction;
-    $urlGroupAcp               = $inputHiddenModule.$inputHiddenController.$inputHiddenAction;
-    $inputHiddenFilterStatus   = FormBackend::input('hidden', 'filter_status', 'filter_status', @$params['filter_status']);
-    $inputHiddenFilterGroupAcp = FormBackend::input('hidden', 'filter_groupacp', 'filter_groupacp', @$params['filter_groupacp']);
-    // $inputHiddenFilterSearch   = FormBackend::input('hidden', 'filter_search', 'filter_search', @$params['filter_search']);
+    $url        = $inputHiddenModule.$inputHiddenController.$inputHiddenAction;
+    $urlGroupId = $inputHiddenModule.$inputHiddenController.$inputHiddenAction;
+
+    $inputHiddenFilterStatus  = FormBackend::input('hidden', 'filter_status', 'filter_status', @$params['filter_status']);
+    $inputHiddenFilterGroupId = FormBackend::input('hidden', 'filter_groupid', 'filter_groupid', @$params['filter_groupid']);
+
     if(isset($params['filter_status']))     {
         $url .= $inputHiddenFilterStatus;
-        $urlGroupAcp .= $inputHiddenFilterStatus;
+        $urlGroupId .= $inputHiddenFilterStatus;
     }
-    if(isset($params['filter_groupacp']))   $url .= $inputHiddenFilterGroupAcp;
+    if(isset($params['filter_groupid']))   $url .= $inputHiddenFilterGroupId;
     // if(isset($params['search']))     {
     //     $url .= $inputHiddenFilterSearch;
     //     $urlGroupAcp .= $inputHiddenFilterSearch;
@@ -72,9 +62,9 @@
                 <?=$buttonStatus?>
             </div>
             <div class="mb-1">
-                <form action="" method="get" id="form-filter-group-acp" name="form-filter-group-acp" >
-                    <?=$urlGroupAcp?>
-                    <select id="filter_groupacp" name="filter_groupacp" class="custom-select custom-select-sm mr-1" style="width: unset" >
+                <form action="" method="get" id="form-filter-group-id" name="form-filter-group-id" >
+                    <?=$urlGroupId?>
+                    <select id="filter_groupid" name="filter_groupid" class="custom-select custom-select-sm mr-1" style="width: unset" >
                         <?=$buttonSelect?>
                     </select>
                 </form>

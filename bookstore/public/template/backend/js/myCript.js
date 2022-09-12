@@ -27,8 +27,25 @@ $(document).ready(function (){
         $('#form-filter-group-acp').submit();
         // $('#input-search').submit();
     });
-    $('#select-group').on('change', function() {
-        $('#group-acp').submit();
+    $('#filter_groupid').on('change', function() {
+        $('#form-filter-group-id').submit();
+        // $('#input-search').submit();
+    });
+    $('#select-group-user').on('change', function() {
+        let value = $(this).val();
+        console.log(value);
+        //let url = $('#select-group-user.selected').data('url');
+        let url = $(this).data('url');
+        console.log(this);
+        url = url.replace("value_new", value);
+        // console.log(url);
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function(response){
+                $("#select-group-user").notify("Success", {className: 'success', position: 'top-center'})
+            }
+        })
     });
 
     
