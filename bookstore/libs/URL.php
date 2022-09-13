@@ -13,4 +13,5 @@ class URL{
         }
         return sprintf('index.php?module=%s&controller=%s&action=%s%s', $module, $controller, $action, $queryParams);
     }
+
 }

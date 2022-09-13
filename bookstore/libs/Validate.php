@@ -86,6 +86,14 @@ class Validate{
 					case 'existRecord':
 						$this->validateExistRecord($element, $value['options']);
 						break;
+					case 'string-notExistRecord':
+						$this->validateString($element, $value['options']['min'], $value['options']['max']);
+						$this->validateNotExistRecord($element, $value['options']);
+						break;
+					case 'email-notExistRecord':
+						$this->validateEmail($element);
+						$this->validateNotExistRecord($element, $value['options']);
+						break;
 					case 'file':
 						$this->validateFile($element, $value['options']);
 						break;
@@ -139,6 +147,17 @@ class Validate{
 			$xhtml .= '<ul class="error">';
 			foreach($this->errors as $key => $value){
 				$xhtml .= '<li>'.$value.' </li>';
+			}
+			$xhtml .=  '</ul>';
+		}
+		return $xhtml;
+	}
+	public function showErrorsRegister(){
+		$xhtml = '';
+		if(!empty($this->errors)){
+			$xhtml .= '<ul class="error">';
+			foreach($this->errors as $key => $value){
+				$xhtml .= '<li>'.$value.' </li> </br>';
 			}
 			$xhtml .=  '</ul>';
 		}
@@ -208,6 +227,16 @@ class Validate{
 		$query	  = $options['query'];
 		if($database->isExist($query)==false){
 			$this->setError($element, 'record is not exist');
+		}
+	}
+
+	// Validate Not Exist record
+	private function validateNotExistRecord($element, $options){
+		$database = $options['database'];
+	
+		$query	  = $options['query'];	// SELECT id FROM user where username = 'admin'
+		if($database->isExist($query)==true){
+			$this->setError($element, 'giá trị này đã tồn tại');
 		}
 	}
 	
