@@ -64,7 +64,7 @@ class UserController extends Controller{
 			$data = $this->_arrParam['form'];
 			$validate = new Validate($data);
 			$validate->addRule('username', 'string', ['min' => 1, 'max' => 100])
-					->addRule('password', 'password', ['action' => $task])
+					//->addRule('password', 'password', ['action' => $task])
 					->addRule('email', 'email')
 					->addRule('status', 'status')
 					->addRule('group_id', 'groupAcp');

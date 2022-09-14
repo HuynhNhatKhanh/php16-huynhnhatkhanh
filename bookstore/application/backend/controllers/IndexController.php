@@ -47,6 +47,19 @@ class IndexController extends Controller{
 		}
 		$this->_view->render($this->_arrParam['controller'].DS.'login');
 	}
+
+	public function profileAction(){
+
+		$this->_templateObj->setFolderTemplate('backend/');
+		$this->_templateObj->setFileTemplate('index.php');
+		$this->_templateObj->setFileConfig('template.ini');
+		$this->_templateObj->load();
+		$this->_view->setTitle(ucfirst($this->_arrParam['action']));
+		
+		$userObj	= Session::get('user');
+		$this->_view->data	= $userObj['info'];
+		$this->_view->render($this->_arrParam['controller'].DS.'profile');
+	}
 	
 	public function logoutAction(){
 

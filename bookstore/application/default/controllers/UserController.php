@@ -34,6 +34,6 @@ class UserController extends Controller{
 		$this->_view->render('user/register');
 	}
 	public function loginAction(){
-		$this->_view->render('user/login');
+		$this->_view->render('index/login');
 	}
 }

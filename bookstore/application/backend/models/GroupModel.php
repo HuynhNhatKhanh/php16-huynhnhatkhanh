@@ -99,9 +99,15 @@ class GroupModel extends Model
 	}
 	public function saveItems($params, $option = null)
 	{
+		$userObj	= Session::get('user');
+		$userInfo	= $userObj['info'];
+		// echo '<pre>';
+        // print_r($userInfo);
+        // echo '</pre>';
+		// die();
 		if ($option['task'] == 'add') {
 			$params['created'] = date('Y-m-d H:i:s');
-			$params['created_by'] = 'dev';
+			$params['created_by'] = $userInfo['username'];
 			$this->insert($params);
 			if ($this->affectedRows()) {
 				Session::set('message', NOTICE_ADD_ITEM_SUCCESS);
@@ -109,7 +115,7 @@ class GroupModel extends Model
 		}
 		if ($option['task'] == 'edit') {
 			$params['modified'] = date('Y-m-d H:i:s');
-			$params['modified_by'] = 'dev';
+			$params['modified_by'] = $userInfo['username'];
 			$id = $params['id'];
 			unset($params['id']);
 			$this->update($params, [['id', $id]]);

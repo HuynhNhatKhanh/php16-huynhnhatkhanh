@@ -1,9 +1,22 @@
 <?php
     $linkHome = URL::createLink('default', 'index', 'index');
-    $linkLogin = URL::createLink('default', 'user', 'login');
+    $linkLogin = URL::createLink('default', 'index', 'login');
+    $linkLogout = URL::createLink('default', 'index', 'logout');
     $linkRegister = URL::createLink('default', 'user', 'register');
+   
+    $userInfo	= Session::get('user');
+
+
+    $xhtml ='<li><a href="'.$linkLogin.'">Đăng nhập</a></li>
+    <li><a href="'.$linkRegister.'">Đăng ký</a></li>';
+    if(isset($userInfo))  {
+        $xhtml = '<p>'.$userInfo['info']['fullname'].'</p>
+        <li><a href="'.$linkRegister.'">Đăng ký</a></li>
+        <li><a href="'.$linkLogout.'">Đăng suất</a></li>';
+    }
 ?>
 <header class="my-header sticky">
+    
     <div class="mobile-fix-option"></div>
     <div class="container">
         <div class="row">
@@ -43,9 +56,10 @@
                             <ul class="header-dropdown">
                                 <li class="onhover-dropdown mobile-account">
                                     <img src="<?= $this->_pathImg?>avatar.png" alt="avatar">
+                                    
                                     <ul class="onhover-show-div">
-                                        <li><a href="<?=$linkLogin?>">Đăng nhập</a></li>
-                                        <li><a href="<?=$linkRegister?>">Đăng ký</a></li>
+                                    <?=$xhtml?>
+                                        
                                     </ul>
                                 </li>
                             </ul>

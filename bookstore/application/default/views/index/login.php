@@ -1,5 +1,14 @@
 <?php
     $linkRegister = URL::createLink('default', 'user', 'register');
+
+    $lblEmail = FormBackend::label('email', 'Email', false, 'required');
+    $inputEmail = FormBackend::input('email', 'form[email]', 'form[email]', null, 'form-control',);
+    $rowEmail = FormBackend::row($lblEmail, $inputEmail, 'form-group');
+
+    $lblPassword = FormBackend::label('password', 'Password', false, 'required');
+    $inputPassword = FormBackend::input('password', 'form[password]', 'form[password]', null, 'form-control');
+    $rowPassword = FormBackend::row($lblPassword, $inputPassword, 'form-group');
+
 ?>
 
 <div class="breadcrumb-section">
@@ -20,9 +29,11 @@
         <div class="row">
             <div class="col-lg-6">
                 <h3>Đăng nhập</h3>
+                <?=@$this->errors?>
                 <div class="theme-card">
                     <form action="" method="post" id="admin-form" class="theme-form">
-                        <div class="form-group">
+                        <?=$rowEmail.$rowPassword?>
+                        <!-- <div class="form-group">
                             <label for="email" class="required">Email</label>
                             <input type="email" id="form[email]" name="form[email]" value="" class="form-control">
                         </div>
@@ -30,8 +41,8 @@
                         <div class="form-group">
                             <label for="password" class="required">Mật khẩu</label>
                             <input type="password" id="form[password]" name="form[password]" value="" class="form-control">
-                        </div>
-                        <input type="hidden" id="form[token]" name="form[token]" value="1599208737">
+                        </div> -->
+                        <input type="hidden" id="form[token]" name="form[token]" value="<?=time()?>">
                         <button type="submit" id="submit" name="submit" value="Đăng nhập" class="btn btn-solid">Đăng nhập</button>
                     </form>
                 </div>

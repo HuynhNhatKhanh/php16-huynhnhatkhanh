@@ -32,7 +32,7 @@ class Bootstrap{
 			
 			//Session::delete('user');
 			
-			$logged		= (@$userInfo['login'] == 1 && @$userInfo['time'] + TIME_LOGIN >= time());
+			$logged		= (@$userInfo['login'] == true && @$userInfo['time'] + TIME_LOGIN >= time());
 		
 			// MODULE BACKEND
 			if($module == 'backend'){
@@ -58,7 +58,8 @@ class Bootstrap{
 					}else{
 						$this->callLoginAction($module);
 					}
-				}else{
+				}
+				else{
 					$this->_controllerObject->$actionName();
 				}
 			}
@@ -66,7 +67,7 @@ class Bootstrap{
 			
 			
 		}else{
-			$this->_error();
+			URL::redirect(URL::createLink('default', 'index', 'notice', ['type' => 'not-url']));
 		}
 	}
 	
