@@ -74,7 +74,7 @@ class Bootstrap{
 	// CALL ACTION LOGIN
 	private function callLoginAction($module = 'default'){
 		Session::delete('user');
-		require_once (MODULE_PATH . $module . DS . 'controllers' . DS . 'IndexController.php');
+		require_once (MODULE_PATH .  $module . DS . 'controllers' . DS . 'IndexController.php');
 		$indexController = new IndexController($this->_params);
 		$indexController->loginAction();
 	}
@@ -87,7 +87,7 @@ class Bootstrap{
 	
 	// ERROR CONTROLLER
 	public function _error(){
-		require_once MODULE_PATH . 'default' . DS . 'controllers' . DS . 'ErrorController.php';
+		require_once APPLICATION_PATH .  'default' . DS . 'controllers' . DS . 'ErrorController.php';
 		$this->_controllerObject = new ErrorController();
 		$this->_controllerObject->setView('default');
 		$this->_controllerObject->indexAction();

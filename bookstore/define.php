@@ -26,3 +26,10 @@
 	// ====================== DATABASE TABLE ===========================
 	define ('TB_GROUP'			, 'group');
 	define ('TB_USER'			, 'user');
+	define ('TB_PRIVELEGE'		, 'privilege');
+	define ('TB_CATEGORY'		, 'category');
+	define ('TB_BOOK'			, 'book');
+	define ('TB_CART'			, 'cart');
+	
+	// ====================== CONFIG ===========================
+	define ('TIME_LOGIN'		, 3600);

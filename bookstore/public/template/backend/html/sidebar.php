@@ -1,4 +1,6 @@
 <?php
+    $linkDashboard = URL::createLink('backend','dashboard', 'index');
+
     $linkGroupList = URL::createLink('backend','group', 'index');
     $linkGroupForm = URL::createLink('backend','group', 'form');
 
@@ -36,7 +38,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="dashboard.php" class="nav-link" data-active="dashboard">
+                    <a href="<?=$linkDashboard?>" class="nav-link" data-active="dashboard">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Dashboard</p>
                     </a>
@@ -90,7 +92,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?=$linkCategoryForm?>" class="nav-link" data-active="index">
+                            <a href="<?=$linkCategoryList?>" class="nav-link" data-active="index">
                                 <i class="nav-icon fas fa-list-ul"></i>
                                 <p>List</p>
                             </a>
@@ -111,7 +113,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?=$linkBookForm?>" class="nav-link" data-active="index">
+                            <a href="<?=$linkBookList?>" class="nav-link" data-active="index">
                                 <i class="nav-icon fas fa-list-ul"></i>
                                 <p>List</p>
                             </a>

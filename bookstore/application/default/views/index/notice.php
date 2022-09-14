@@ -8,6 +8,12 @@
 			$messageH2	= 'Tài khoản của bạn đã được tạo thành công!';
             $title = 'Tạo tài khoản';
 			break;
+        case 'not-permission':
+            $messageH2	= 'Bạn không có quyền truy cập vào chức năng đó!';
+            break;
+        case 'not-url':
+            $messageH2	= 'Đường dẫn không hợp lệ!';
+            break;
 	}
 ?>
 
