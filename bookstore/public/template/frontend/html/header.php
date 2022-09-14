@@ -12,7 +12,7 @@
     if(isset($userInfo))  {
         $xhtml = '<p>'.$userInfo['info']['fullname'].'</p>
         <li><a href="'.$linkRegister.'">Đăng ký</a></li>
-        <li><a href="'.$linkLogout.'">Đăng suất</a></li>';
+        <li><a href="'.$linkLogout.'">Đăng xuất</a></li>';
     }
 ?>
 <header class="my-header sticky">

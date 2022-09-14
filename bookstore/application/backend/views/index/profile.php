@@ -14,7 +14,7 @@
         $rowFullname   = FormBackend::row($lblFullname, $inputFullname);
 
         $lblUsername   = FormBackend::label('username', 'Username');
-        $inputUsername = FormBackend::wrap('',FormBackend::input( 'text', 'form[username]', 'form[username]', @$data['username']));
+        $inputUsername = FormBackend::wrap('',FormBackend::inputReadonly( 'text', 'form[username]', 'form[username]', @$data['username']));
         $rowUsername   = FormBackend::row($lblUsername, $inputUsername);
 
         // $lblPassword   = FormBackend::label('password', 'Password');
@@ -22,7 +22,7 @@
         // $rowPassword   = FormBackend::row($lblPassword, $inputPassword);
 
         $lblEmail   = FormBackend::label('email', 'Email');
-        $inputEmail = FormBackend::wrap('',FormBackend::input( 'email', 'form[email]', 'form[email]', @$data['email']));
+        $inputEmail = FormBackend::wrap('',FormBackend::inputReadonly( 'email', 'form[email]', 'form[email]', @$data['email']));
         $rowEmail   = FormBackend::row($lblEmail, $inputEmail);
     
 

@@ -7,6 +7,12 @@ class FormBackend {
         return $xhtml;
         
     }
+    public static function inputReadonly($inputType, $idForm, $name, $value='', $class = 'form-control form-control-sm'){
+        $xhtml = sprintf('<input type="%s" id="%s" name="%s" value="%s" class="%s" readonly>',
+        $inputType, $idForm, $name, $value, $class);
+        return $xhtml;
+        
+    }
     public static function select($name, $idForm, $options, $keySelected, $attr = '', $class = 'custom-select custom-select-sm'){
 
         $xhtmlOptions = '';
