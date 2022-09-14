@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th9 07, 2022 lúc 01:40 PM
+-- Thời gian đã tạo: Th9 14, 2022 lúc 11:49 AM
 -- Phiên bản máy phục vụ: 10.4.22-MariaDB
 -- Phiên bản PHP: 7.4.27
 
@@ -149,10 +149,10 @@ CREATE TABLE `group` (
 --
 
 INSERT INTO `group` (`id`, `name`, `group_acp`, `created`, `created_by`, `modified`, `modified_by`, `status`, `ordering`, `privilege_id`, `picture`) VALUES
-(1, 'Admin', 'no', '2013-11-11 07:15:24', 'admin', '2022-08-26 05:39:55', 'dev', 'active', 5, '1,2,3,4,5,6,7,8,9,10', ''),
-(2, 'Manager', 'no', '2013-11-07 02:02:20', 'admin', '2013-12-03 07:19:19', 'admin', 'active', 4, '1,2,3,4,6,7,8,9,10', ''),
-(3, 'Member', 'yes', '2013-11-12 05:05:15', 'admin', '2022-08-18 21:31:44', 'admin', 'inactive', 2, '', ''),
-(10, 'Dev', 'yes', '2013-11-11 07:15:24', 'admin', '2022-08-31 10:51:18', 'dev', 'active', 5, '1,2,3,4,5,6,7,8,9,10', ''),
+(1, 'Admin', 'yes', '2013-11-11 07:15:24', 'admin', '2022-09-12 18:47:04', 'dev', 'active', 5, '1,2,3,4,5,6,7,8,9,10', ''),
+(2, 'Manager', 'no', '2013-11-07 02:02:20', 'admin', '2013-12-03 07:19:19', 'admin', 'inactive', 4, '1,2,3,4,6,7,8,9,10', ''),
+(3, 'Member', 'no', '2013-11-12 05:05:15', 'admin', '2022-08-18 21:31:44', 'admin', 'active', 2, '', ''),
+(10, 'Dev', 'yes', '2013-11-11 07:15:24', 'admin', '2022-09-14 10:18:52', 'Admin', 'inactive', 5, '1,2,3,4,5,6,7,8,9,10', ''),
 (14, 'Manager Test1', 'no', '2022-08-25 18:19:53', NULL, '2022-08-25 18:21:24', 'dev', 'active', 10, '', ''),
 (15, 'Huỳnh Nhật Khánh', 'no', '2022-08-25 18:21:39', 'dev', '2022-08-25 18:21:51', 'dev', 'active', 10, '', ''),
 (16, 'Huynh Khanh', 'yes', '2022-08-25 18:25:36', 'dev', '2022-08-25 18:39:24', 'dev', 'active', 10, '', ''),
@@ -210,24 +210,23 @@ CREATE TABLE `user` (
   `register_ip` varchar(25) DEFAULT NULL,
   `status` varchar(45) DEFAULT NULL,
   `ordering` int(11) DEFAULT 10,
-  `group_id` int(11) NOT NULL,
-  `group_acp` varchar(45) DEFAULT NULL
+  `group_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `email`, `fullname`, `password`, `created`, `created_by`, `modified`, `modified_by`, `register_date`, `register_ip`, `status`, `ordering`, `group_id`, `group_acp`) VALUES
-(1, 'HNKhanh', 'khanhhuynh28082000@gmail.com', 'Huỳnh Nhật Khánh', 'e10adc3949ba59abbe56e057f20f883e', '2022-08-26 11:21:29', '1', '2022-08-31 03:48:31', 'dev', '2022-08-26 11:20:22', NULL, 'active', 4, 1, 'admin'),
-(2, 'Admin', 'Admin@gmail.com', 'Nguyễn Phú Trọng', 'e10adc3949ba59abbe56e057f20f883e', '2022-08-26 11:21:33', 'admin', '2022-08-26 11:21:31', NULL, '2022-08-26 11:21:35', NULL, 'inactive', 3, 2, 'manager'),
-(11, 'Manager', 'Manager@gmail.com', 'Võ Văn Kiệt', 'e10adc3949ba59abbe56e057f20f883e', '2022-08-26 11:21:33', 'admin', '2022-08-26 11:21:31', NULL, '2022-08-26 11:21:35', NULL, 'active', 3, 3, 'member'),
-(12, 'HNKhanh', 'khanhhuynh28082000@gmail.com', 'Huỳnh Nhật Khánh', 'e10adc3949ba59abbe56e057f20f883e', '2022-08-26 11:21:29', '1', '2022-08-26 11:20:27', NULL, '2022-08-26 11:20:22', NULL, 'inactive', 4, 1, 'admin'),
-(13, 'Admin', 'Admin@gmail.com', 'Nguyễn Phú Trọng', 'e10adc3949ba59abbe56e057f20f883e', '2022-08-26 11:21:33', 'admin', '2022-08-26 11:21:31', NULL, '2022-08-26 11:21:35', NULL, 'inactive', 3, 3, 'manager'),
-(15, 'HNKhanh', 'khanhhuynh28082000@gmail.com', 'Huỳnh Nhật Khánh', 'e10adc3949ba59abbe56e057f20f883e', '2022-08-26 11:21:29', '1', '2022-08-26 11:20:27', NULL, '2022-08-26 11:20:22', NULL, 'inactive', 4, 10, 'admin'),
-(17, 'HNK', '18521693@gm.uit.edu.vn', 'Huỳnh Nhật Khánh', 'asa$', '2022-08-31 03:47:36', 'dev', NULL, NULL, NULL, NULL, 'active', 10, 10, 'admin'),
-(18, 'Admin', 'Admin@gmail.com', 'Nguyễn Phú Trọng', 'e10adc3949ba59abbe56e057f20f883e', '2022-08-26 11:21:33', 'admin', '2022-08-26 11:21:31', NULL, '2022-08-26 11:21:35', NULL, 'inactive', 3, 2, 'manager'),
-(19, 'HNKhanh', 'khanhhuynh28082000@gmail.com', 'Huỳnh Nhật Khánh', 'e10adc3949ba59abbe56e057f20f883e', '2022-08-26 11:21:29', '1', '2022-08-26 11:20:27', NULL, '2022-08-26 11:20:22', NULL, 'inactive', 4, 1, 'admin');
+INSERT INTO `user` (`id`, `username`, `email`, `fullname`, `password`, `created`, `created_by`, `modified`, `modified_by`, `register_date`, `register_ip`, `status`, `ordering`, `group_id`) VALUES
+(1, 'HNKhanh', 'khanhhuynh28082000@gmail.com', 'Huỳnh Nhật Khánh', 'e10adc3949ba59abbe56e057f20f883e', '2022-08-26 11:21:29', 'admin', '2022-08-31 03:48:31', 'dev', '2022-08-26 11:20:22', NULL, 'active', 4, 1),
+(2, 'Admin', 'Admin@gmail.com', 'Nguyễn Phú Trọng', 'e10adc3949ba59abbe56e057f20f883e', '2022-08-26 11:21:33', 'admin', '2022-08-26 11:21:31', NULL, '2022-08-26 11:21:35', NULL, 'active', 3, 1),
+(11, 'Manager', 'Manager@gmail.com', 'Võ Văn Kiệt', 'e10adc3949ba59abbe56e057f20f883e', '2022-08-26 11:21:33', 'admin', '2022-08-26 11:21:31', NULL, '2022-08-26 11:21:35', NULL, 'active', 3, 2),
+(12, 'HNKhanh', 'khanhhuynh28082000@gmail.com', 'Huỳnh Nhật Khánh', 'e10adc3949ba59abbe56e057f20f883e', '2022-08-26 11:21:29', 'admin', '2022-08-26 11:20:27', NULL, '2022-08-26 11:20:22', NULL, 'inactive', 4, 1),
+(15, 'HNKhanh', 'khanhhuynh28082000@gmail.com', 'Huỳnh Nhật Khánh', 'e10adc3949ba59abbe56e057f20f883e', '2022-08-26 11:21:29', 'dev', '2022-08-26 11:20:27', NULL, '2022-08-26 11:20:22', NULL, 'inactive', 4, 10),
+(17, 'HNK', '18521693@gm.uit.edu.vn', 'Huỳnh Nhật Khánh', 'ASASADADA', '2022-08-31 03:47:36', 'dev', '2022-09-14 10:21:38', 'Admin', NULL, NULL, 'active', 10, 10),
+(19, 'HNKhanh', 'khanhhuynh28082000@gmail.com', 'Huỳnh Nhật Khánh', 'e10adc3949ba59abbe56e057f20f883e', '2022-08-26 11:21:29', 'dev', '2022-08-26 11:20:27', NULL, '2022-08-26 11:20:22', NULL, 'inactive', 4, 1),
+(21, 'HNKhanh test 1', 'khanhhuynh28082000@gmail.com', 'Huỳnh Nhật Khánh', 'Khanh01$', '2022-09-10 19:41:33', 'dev', '2022-09-14 10:25:52', 'Admin', NULL, NULL, 'inactive', 10, 2),
+(22, 'HNKhanh test', '18521693@gm.uit.edu.vn', 'Huỳnh Nhật Khánh', 'Khanh33$', '2022-09-10 20:03:18', 'dev', '2022-09-14 10:23:32', '', NULL, NULL, 'active', 10, 2);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -301,7 +300,7 @@ ALTER TABLE `privilege`
 -- AUTO_INCREMENT cho bảng `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
