@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th9 14, 2022 lúc 11:49 AM
+-- Thời gian đã tạo: Th9 21, 2022 lúc 01:15 PM
 -- Phiên bản máy phục vụ: 10.4.22-MariaDB
 -- Phiên bản PHP: 7.4.27
 
@@ -101,11 +101,11 @@ CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `picture` text DEFAULT NULL,
-  `created` date DEFAULT '0000-00-00',
+  `created` datetime DEFAULT NULL,
   `created_by` varchar(255) DEFAULT NULL,
-  `modified` date DEFAULT '0000-00-00',
+  `modified` datetime DEFAULT NULL,
   `modified_by` varchar(255) DEFAULT NULL,
-  `status` tinyint(1) DEFAULT 0,
+  `status` varchar(45) DEFAULT NULL,
   `ordering` int(11) DEFAULT 10
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -114,15 +114,15 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `name`, `picture`, `created`, `created_by`, `modified`, `modified_by`, `status`, `ordering`) VALUES
-(1, 'Văn Học - Tiểu Thuyết', 'hft8q1c3.jpg', '2013-12-09', 'admin', '2013-12-09', 'admin', 1, 10),
-(2, 'Kinh Tế', '3snfyg8u.jpg', '2013-12-09', 'admin', '2013-12-21', 'admin', 1, 4),
-(3, 'Tin học', 'zahorwby.jpg', '2013-12-09', 'admin', '2013-12-09', 'admin', 1, 10),
-(4, ' Kỹ Năng Sống', 'bntdur5l.jpg', '2013-12-09', 'admin', '2013-12-09', 'admin', 1, 1),
-(5, 'Thiếu Nhi', 'kt5h9ica.jpg', '2013-12-09', 'admin', '2013-12-09', 'admin', 1, 10),
-(6, ' Thường Thức - Đời Sống', 'tv8basyz.jpg', '2013-12-09', 'admin', '2013-12-09', 'admin', 1, 2),
-(7, 'Ngoại Ngữ - Từ Điển', 'zruvqadp.jpg', '2013-12-09', 'admin', '2013-12-09', 'admin', 1, 5),
-(8, 'Truyện Tranh', '5hd9kq6s.jpeg', '2013-12-09', 'admin', '2013-12-09', 'admin', 1, 10),
-(9, ' Văn Hoá - Nghệ Thuật', 'btkjrfal.jpg', '2013-12-06', 'admin', '2013-12-21', 'admin', 0, 3);
+(1, 'Văn Học - Tiểu Thuyết', 'hft8q1c3.jpg', '2013-12-09 00:00:00', 'admin', '2013-12-09 00:00:00', 'admin', 'active', 10),
+(2, 'Kinh Tế', '3snfyg8u.jpg', '2013-12-09 00:00:00', 'admin', '2013-12-21 00:00:00', 'admin', 'inactive', 4),
+(3, 'Tin học', 'zahorwby.jpg', '2013-12-09 00:00:00', 'admin', '2013-12-09 00:00:00', 'admin', 'active', 10),
+(4, ' Kỹ Năng Sống', 'bntdur5l.jpg', '2013-12-09 00:00:00', 'admin', '2013-12-09 00:00:00', 'admin', 'active', 1),
+(5, 'Thiếu Nhi', 'kt5h9ica.jpg', '2013-12-09 00:00:00', 'admin', '2013-12-09 00:00:00', 'admin', 'active', 10),
+(6, ' Thường Thức - Đời Sống', 'tv8basyz.jpg', '2013-12-09 00:00:00', 'admin', '2013-12-09 00:00:00', 'admin', 'active', 2),
+(7, 'Ngoại Ngữ - Từ Điển', 'zruvqadp.jpg', '2013-12-09 00:00:00', 'admin', '2013-12-09 00:00:00', 'admin', 'active', 5),
+(8, 'Truyện Tranh', '5hd9kq6s.jpeg', '2013-12-09 00:00:00', 'admin', '2013-12-09 00:00:00', 'admin', 'active', 10),
+(9, ' Văn Hoá - Nghệ Thuật', 'btkjrfal.jpg', '2013-12-06 00:00:00', 'admin', '2013-12-21 00:00:00', 'admin', 'active', 3);
 
 -- --------------------------------------------------------
 
@@ -152,7 +152,7 @@ INSERT INTO `group` (`id`, `name`, `group_acp`, `created`, `created_by`, `modifi
 (1, 'Admin', 'yes', '2013-11-11 07:15:24', 'admin', '2022-09-12 18:47:04', 'dev', 'active', 5, '1,2,3,4,5,6,7,8,9,10', ''),
 (2, 'Manager', 'no', '2013-11-07 02:02:20', 'admin', '2013-12-03 07:19:19', 'admin', 'inactive', 4, '1,2,3,4,6,7,8,9,10', ''),
 (3, 'Member', 'no', '2013-11-12 05:05:15', 'admin', '2022-08-18 21:31:44', 'admin', 'active', 2, '', ''),
-(10, 'Dev', 'yes', '2013-11-11 07:15:24', 'admin', '2022-09-14 10:18:52', 'Admin', 'inactive', 5, '1,2,3,4,5,6,7,8,9,10', ''),
+(10, 'Dev', 'yes', '2013-11-11 07:15:24', 'admin', '2022-09-14 15:17:11', 'Admin', 'inactive', 5, '1,2,3,4,5,6,7,8,9,10', ''),
 (14, 'Manager Test1', 'no', '2022-08-25 18:19:53', NULL, '2022-08-25 18:21:24', 'dev', 'active', 10, '', ''),
 (15, 'Huỳnh Nhật Khánh', 'no', '2022-08-25 18:21:39', 'dev', '2022-08-25 18:21:51', 'dev', 'active', 10, '', ''),
 (16, 'Huynh Khanh', 'yes', '2022-08-25 18:25:36', 'dev', '2022-08-25 18:39:24', 'dev', 'active', 10, '', ''),
