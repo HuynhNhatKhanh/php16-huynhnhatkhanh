@@ -15,14 +15,10 @@
     $selectStatus = FormBackend::wrap(FormBackend::select('form[status]', 'form[status]', $arrSelected, $data['status'] ?? 'default'));
     $rowStatus    = FormBackend::row($lblStatus, $selectStatus);
 
-    $lblGroupAcp = FormBackend::label('group_acp', 'GroupAcp');
-    $arrSelected = [
-        'default' => '- Select GroupAcp -',
-        'yes'     => 'Yes',
-        'no'      => 'No'
-    ];
-    $selectGroupAcp = FormBackend::wrap(FormBackend::select('form[group_acp]', 'form[group_acp]', $arrSelected, $data['group_acp'] ?? 'default'));
-    $rowGroupAcp    = FormBackend::row($lblGroupAcp, $selectGroupAcp);
+    $lblPicture   = FormBackend::label('picture', 'Picture');
+    $inputPicture = FormBackend::wrap('',FormBackend::input( 'file', 'form[picture]', 'form[picture]', @$data['picture']));
+    $rowPicture   = FormBackend::row($lblPicture, $inputPicture);
+   
 
     $inputId = '';
     if(isset($this->params['id'])){
@@ -47,7 +43,7 @@
             <form action="" method="post" class="mb-0" id="admin-form">
                 <div class="card-body">     
                         <?=$inputId ?>
-                        <?=$rowName.$rowStatus.$rowGroupAcp; ?>             
+                        <?=$rowName.$rowStatus.$rowPicture; ?>             
                 </div>
                 <div class="card-footer">
                     <div class="col-12 col-sm-8 offset-sm-2">
